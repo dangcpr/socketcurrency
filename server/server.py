@@ -22,6 +22,7 @@ def data():
     print(json.dumps(json_object, indent = 3))
     with open('data.json', 'w' , encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
+def UI_for_Server():
 
     
 if __name__=="__main__":
@@ -30,5 +31,4 @@ if __name__=="__main__":
     local_ip = socket.gethostbyname_ex(hostname)
     print(hostname)
     print(local_ip)
-    createInterface()
-
+    UI_for_Server()

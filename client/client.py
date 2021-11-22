@@ -7,23 +7,16 @@ import tkinter as tk
 
 
 
-def data():
-    url = "https://currency-converter5.p.rapidapi.com/currency/convert"
+def getData(file):
+    with open(file, 'r') as f:
+        data = json.load(f)
+    return data
 
-    querystring = {"format":"json","from":"AUD","to":"CAD","amount":"1"}
+def Interface_for_Client():
 
-    headers = {
-        'x-rapidapi-host': "currency-converter5.p.rapidapi.com",
-        'x-rapidapi-key': "eeedbfa64emshbdd697d5f8b99b5p13bbcdjsn9ce5e073eaa1"
-    }
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    json_object = json.loads(response.text)
-    print(json.dumps(json_object, indent = 3))
-    with open('data.json', 'w' , encoding='utf-8') as f:
-        json.dump(json_object, f, ensure_ascii=False, indent=4)
-def updateData30mins():
-    
+
+
 
     
 if __name__=="__main__":
@@ -32,5 +25,4 @@ if __name__=="__main__":
     local_ip = socket.gethostbyname_ex(hostname)
     print(hostname)
     print(local_ip)
-    #createInterface()
-
+    Interface_for_Client()
