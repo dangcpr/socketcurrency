@@ -22,29 +22,7 @@ def data():
     print(json.dumps(json_object, indent = 3))
     with open('data.json', 'w' , encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
-def createInterface():
-    root = tk.Tk()
-    root.title("Currency Converter")
-    root.geometry("300x300")
-    root.resizable(False, False)
-    root.configure(background='#f2f2f2')
-    label = tk.Label(root, text="Currency Converter", font=("Helvetica", 16), bg="#f2f2f2")
-    label.pack()
-    label = tk.Label(root, text="Enter amount:", font=("Helvetica", 12), bg="#f2f2f2")
-    label.pack()
-    amount = tk.Entry(root)
-    amount.pack()
-    label = tk.Label(root, text="From:", font=("Helvetica", 12), bg="#f2f2f2")
-    label.pack()
-    from_ = tk.Entry(root)
-    from_.pack()
-    label = tk.Label(root, text="To:", font=("Helvetica", 12), bg="#f2f2f2")
-    label.pack()
-    to_ = tk.Entry(root)
-    to_.pack()
-    button = tk.Button(root, text="Convert", command=lambda: convert(amount.get(), from_.get(), to_.get()))
-    button.pack()
-    root.mainloop()
+
     
 if __name__=="__main__":
     #data()
