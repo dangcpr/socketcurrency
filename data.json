@@ -1,0 +1,14 @@
+{
+    "base_currency_code": "AUD",
+    "base_currency_name": "Australian dollar",
+    "amount": "1.0000",
+    "updated_date": "2021-11-11",
+    "rates": {
+        "CAD": {
+            "currency_name": "Canadian dollar",
+            "rate": "0.9216",
+            "rate_for_amount": "0.9216"
+        }
+    },
+    "status": "success"
+}
