@@ -23,6 +23,10 @@ def data():
     with open('data.json', 'w' , encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
 
+def Example():
+    print("Hello")
+
+
 
     
 if __name__=="__main__":
