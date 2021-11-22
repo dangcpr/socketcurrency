@@ -22,7 +22,7 @@ def data():
     print(json.dumps(json_object, indent = 3))
     with open('data.json', 'w' , encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
-def updateData30mins():
+
     
 
     
