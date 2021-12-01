@@ -24,7 +24,7 @@ def createSocket():
             s.sendall(msg.encode('utf8'))
             print('Da xong')
             data = s.recv(1024)
-            print('Received ', data.decode('utf8'))
+            print('Received ', data.decode('gutf8'))
     except socket.error as err:
         print("Loi ket noi: ", err)
         sys.exit(1)
@@ -37,6 +37,14 @@ def getData(file):
 #def Interface_for_Client():
 
 
+
+
+
+    #response = requests.request("GET", url, headers=headers, params=querystring)
+    #json_object = json.loads(response.text)
+    #print(json.dumps(json_object, indent = 3))
+    #with open('data.json', 'w' , encoding='utf-8') as f:
+        #json.dump(json_object, f, ensure_ascii=False, indent=4)
 
 
 
