@@ -4,6 +4,41 @@ import schedule
 import time
 import socket
 import tkinter as tk
+import sys
+import os
+
+host = '127.0.0.1'
+port = 65432
+hostname = socket.gethostname()
+address = socket.gethostbyname(hostname)
+
+def createSocket():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print('Da tao socket')
+    except socket.error as err:
+        print('Loi tao socket', err)
+
+    try:
+        s.bind((host, port))
+        s.listen()
+
+        conn, addr = s.accept()
+        with conn:
+            print('Duoc ket noi boi', addr)
+            while True:
+                data = conn.recv(1024)
+                str_data = data.decode('utf8')
+                if not str_data:
+                    break
+                print(str_data)
+                str_send = 'Mon loz'
+                conn.sendall(str_send.encode('utf8'))
+    except socket.error as err:
+        print("Lỗi kết nối: ", err)
+        sys.exit(1)
+
+    
 
 
 
@@ -22,13 +57,22 @@ def data():
     print(json.dumps(json_object, indent = 3))
     with open('data.json', 'w' , encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
-def UI_for_Server():
+def local_ip():
+    localip = socket.gethostname()
+    print(localip)
+def updateLocalIPEvery30mins():
+    data()
+    schedule.every(10).seconds.do(data)
+    while True:
+        schedule.run_pending()
+        time.sleep(0)
 
     
 if __name__=="__main__":
     #data()
-    hostname = socket.gethostname()
-    local_ip = socket.gethostbyname_ex(hostname)
-    print(hostname)
-    print(local_ip)
-    UI_for_Server()
+    
+    #local_ip = socket.gethostbyname_ex(hostname)
+    #local_ip()
+    #updateLocalIPEvery30mins()
+    createSocket()
+

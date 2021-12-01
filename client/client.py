@@ -4,15 +4,37 @@ import schedule
 import time
 import socket
 import tkinter as tk
+import sys
+import os
 
+host = '127.0.0.1'
+port = 65432
 
+def createSocket():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print('Da tao socket')
+    except socket.error as err:
+        print('Loi tao socket', err)
+    
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            msg = 'Hello Workd'
+            s.sendall(msg.encode('utf8'))
+            print('Da xong')
+            data = s.recv(1024)
+            print('Received ', data.decode('utf8'))
+    except socket.error as err:
+        print("Loi ket noi: ", err)
+        sys.exit(1)
 
 def getData(file):
     with open(file, 'r') as f:
         data = json.load(f)
     return data
 
-def Interface_for_Client():
+#def Interface_for_Client():
 
 
 
@@ -21,8 +43,5 @@ def Interface_for_Client():
     
 if __name__=="__main__":
     #data()
-    hostname = socket.gethostname()
-    local_ip = socket.gethostbyname_ex(hostname)
-    print(hostname)
-    print(local_ip)
-    Interface_for_Client()
+    createSocket()
+    os.system("pause")
