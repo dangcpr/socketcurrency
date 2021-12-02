@@ -9,20 +9,10 @@ import os
 
 #host = '127.0.0.1'
 #port = 65432
-hostname = socket.gethostname()
-address = socket.gethostbyname(hostname)
 
-def createSocket(host, port):
+    
+def runServer(s):
     try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print('Da tao socket')
-    except socket.error as err:
-        print('Loi tao socket', err)
-
-    try:
-        s.bind((host, port))
-        s.listen()
-
         conn, addr = s.accept()
         with conn:
             print('Duoc ket noi boi', addr)
@@ -58,27 +48,28 @@ def data():
     print(json.dumps(json_object, indent = 3))
     with open('data.json', 'w' , encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
-def local_ip():
-    localip = socket.gethostname()
-    print(localip)
 def updateLocalIPEvery30mins():
     data()
-    schedule.every(10).seconds.do(data)
+    schedule.every(30).minutes.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
+def exportData():
+    
 
     
 if __name__=="__main__":
-    #data()
-    
-    #local_ip = socket.gethostbyname_ex(hostname)
-    #local_ip()
-    #updateLocalIPEvery30mins()
-    #host = '127.0.0.1'
     port = 65432
     hostname = socket.gethostname()
     address = socket.gethostbyname(hostname)
     print(address)
-    createSocket(address, port)
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print('Da tao socket')
+    except socket.error as err:
+        print('Loi tao socket', err)
 
+    s.bind((address, port))
+    s.listen(1)
+
+    runServer(s)
