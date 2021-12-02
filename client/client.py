@@ -8,12 +8,8 @@ import sys
 import os
 
 
-def createSocket(host, port):
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print('Da tao socket')
-    except socket.error as err:
-        print('Loi tao socket', err)
+def runClient(host, port):
+
     
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -64,7 +60,14 @@ def Example():
 if __name__=="__main__":
     #data()
 
+
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print('Da tao socket')
+    except socket.error as err:
+        print('Loi tao socket', err)
+    
     host = input('Host: ')
     port = input('Port: ')
-    createSocket(host, int(port))
+    runClient(host, int(port))
     os.system("pause")
