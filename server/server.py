@@ -81,4 +81,3 @@ if __name__=="__main__":
     address = socket.gethostbyname(hostname)
     print(address)
     createSocket(address, port)
-
