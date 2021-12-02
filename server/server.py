@@ -7,12 +7,12 @@ import tkinter as tk
 import sys
 import os
 
-host = '127.0.0.1'
-port = 65432
+#host = '127.0.0.1'
+#port = 65432
 hostname = socket.gethostname()
 address = socket.gethostbyname(hostname)
 
-def createSocket():
+def createSocket(host, port):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print('Da tao socket')
@@ -26,7 +26,8 @@ def createSocket():
         conn, addr = s.accept()
         with conn:
             print('Duoc ket noi boi', addr)
-            while True:
+            str_data = None
+            while str_data != 'x':
                 data = conn.recv(1024)
                 str_data = data.decode('utf8')
                 if not str_data:
@@ -74,5 +75,10 @@ if __name__=="__main__":
     #local_ip = socket.gethostbyname_ex(hostname)
     #local_ip()
     #updateLocalIPEvery30mins()
-    createSocket()
+    #host = '127.0.0.1'
+    port = 65432
+    hostname = socket.gethostname()
+    address = socket.gethostbyname(hostname)
+    print(address)
+    createSocket(address, port)
 

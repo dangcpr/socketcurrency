@@ -7,10 +7,8 @@ import tkinter as tk
 import sys
 import os
 
-host = '127.0.0.1'
-port = 65432
 
-def createSocket():
+def createSocket(host, port):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print('Da tao socket')
@@ -20,11 +18,15 @@ def createSocket():
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((host, port))
-            msg = 'Hello Workd'
-            s.sendall(msg.encode('utf8'))
-            print('Da xong')
-            data = s.recv(1024)
-            print('Received ', data.decode('utf8'))
+            #print('Client')
+            k = None
+            while k!='x':
+                #msg = 'Hello World'
+                k = input('Client: ')
+                s.sendall(k.encode('utf8'))
+                print('Da xong')
+                data = s.recv(1024)
+                print('Received ', data.decode('utf8'))
     except socket.error as err:
         print("Loi ket noi: ", err)
         sys.exit(1)
@@ -40,11 +42,13 @@ def getData(file):
 
 
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    json_object = json.loads(response.text)
-    print(json.dumps(json_object, indent = 3))
-    with open('data.json', 'w' , encoding='utf-8') as f:
-        json.dump(json_object, f, ensure_ascii=False, indent=4)
+
+    #response = requests.request("GET", url, headers=headers, params=querystring)
+    #json_object = json.loads(response.text)
+    #print(json.dumps(json_object, indent = 3))
+    #with open('data.json', 'w' , encoding='utf-8') as f:
+        #json.dump(json_object, f, ensure_ascii=False, indent=4)
+
 
 def Example():
     print("Hello")
@@ -53,8 +57,14 @@ def Example():
 
 
 
+
+
+
     
 if __name__=="__main__":
     #data()
-    createSocket()
+
+    host = input('Host: ')
+    port = input('Port: ')
+    createSocket(host, int(port))
     os.system("pause")
