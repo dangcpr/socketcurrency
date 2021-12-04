@@ -1,13 +1,13 @@
 {
-    "base_currency_code": "AUD",
-    "base_currency_name": "Australian dollar",
+    "base_currency_code": "USD",
+    "base_currency_name": "United States dollar",
     "amount": "1.0000",
-    "updated_date": "2021-11-11",
+    "updated_date": "2021-11-25",
     "rates": {
-        "CAD": {
-            "currency_name": "Canadian dollar",
-            "rate": "0.9216",
-            "rate_for_amount": "0.9216"
+        "VND": {
+            "currency_name": "Vietnamese đồng",
+            "rate": "22674.9418",
+            "rate_for_amount": "22674.9418"
         }
     },
     "status": "success"
