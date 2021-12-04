@@ -1,9 +1,9 @@
 {
     "currencies": {
-    "STN":"São Tomé and Príncipe dobra",
+    "STN":"Sao Tome and Principe dobra",
     "XAG":"Silver (troy ounce)",
     "XAU":"Gold (troy ounce)",
-    "PLN":"Polish złoty",
+    "PLN":"Polish zloty",
     "UGX":"Ugandan shilling",
     "GGP":"Guernsey pound",
     "MWK":"Malawian kwacha",
@@ -14,9 +14,9 @@
     "BWP":"Botswana pula",
     "MRU":"Mauritanian ouguiya",
     "BMD":"Bermudian dollar",
-    "MNT":"Mongolian tögrög",
+    "MNT":"Mongolian togrog",
     "FKP":"Falkland Islands pound",
-    "PYG":"Paraguayan guaraní",
+    "PYG":"Paraguayan guarani",
     "AUD":"Australian dollar",
     "KYD":"Cayman Islands dollar",
     "RWF":"Rwandan franc",

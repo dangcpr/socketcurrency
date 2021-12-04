@@ -54,8 +54,12 @@ def updateLocalIPEvery30mins():
     while True:
         schedule.run_pending()
         time.sleep(0)
-def exportData():
-    
+
+def exportCurrency():
+    with open('currency.json',encoding="utf-16-le") as f:
+        json_data = json.load(f)
+        print(json.dumps(json_data, indent = 3))
+
 
     
 if __name__=="__main__":
@@ -71,5 +75,6 @@ if __name__=="__main__":
 
     s.bind((address, port))
     s.listen(1)
-
+    #print('Xin chào các bạn'.encode('utf-16'))
+    #exportCurrency()
     runServer(s)
