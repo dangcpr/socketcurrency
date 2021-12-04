@@ -7,15 +7,67 @@ import tkinter as tk
 import sys
 import os
 
-#host = '127.0.0.1'
-#port = 65432
 
-    
+# host = '127.0.0.1'
+# port = 65432
+def CheckIfExit(Username, Password):
+    User = Username + '_' + Password
+    with open ('Account.json', 'r') as f:
+        Acc_List = json.load(f)
+        if User in Acc_List['Account']:
+            return '1'
+        else: return '0'
+
+def SaveAccount(Username, Password):
+    User = Username + '_' + Password
+    with open('Account.json', 'r+') as f:
+        Acc_list = json.load(f)
+        Acc_list['Account'].append(User)
+        f.seek(0)
+        json.dump(Acc_list, f, indent = 4)
+
+def SignUp_server(s):
+    checkAcc = None
+    while True:
+        Username = s.recv(1024).decode("utf8")
+        Password = s.recv(1024).decode("utf8")
+        checkAcc = CheckIfExit(Username, Password)
+        if checkAcc == '1':
+            s.sendall('1'.encode('utf8'))
+        else:
+            s.sendall('0'.encode('utf8'))
+            SaveAccount(Username, Password)
+            return
+
+
+def Login_server(s):
+    check = None
+    checkAcc = None
+    while True:
+        Username = s.recv(1024).decode("utf8")
+        Password = s.recv(1024).decode("utf8")
+        checkAcc = CheckIfExit(Username, Password)
+        if checkAcc == '0':
+            s.sendall('0'.encode('utf8'))
+        else:
+            s.sendall('1'.encode('utf8'))
+            return
+        check = s.recv(1).decode('utf8')
+        if check == '2':
+            SignUp_server(s)
+            return
+
+
 def runServer(s):
     try:
         conn, addr = s.accept()
         with conn:
             print('Duoc ket noi boi', addr)
+            DNDK = conn.recv(1).decode('utf8')
+            if DNDK == '1':
+                Login_server(conn)
+            else:
+                SignUp_server(conn)
             str_data = None
             while str_data != 'x':
                 data = conn.recv(1024)
@@ -29,14 +81,11 @@ def runServer(s):
         print("Lỗi kết nối: ", err)
         sys.exit(1)
 
-    
-
-
 
 def data():
     url = "https://currency-converter5.p.rapidapi.com/currency/convert"
 
-    querystring = {"format":"json","from":"AUD","to":"CAD","amount":"1"}
+    querystring = {"format": "json", "from": "AUD", "to": "CAD", "amount": "1"}
 
     headers = {
         'x-rapidapi-host': "currency-converter5.p.rapidapi.com",
@@ -45,20 +94,23 @@ def data():
 
     response = requests.request("GET", url, headers=headers, params=querystring)
     json_object = json.loads(response.text)
-    print(json.dumps(json_object, indent = 3))
-    with open('data.json', 'w' , encoding='utf-8') as f:
+    print(json.dumps(json_object, indent=3))
+    with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
+
+
 def updateLocalIPEvery30mins():
     data()
     schedule.every(30).minutes.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
-def exportData():
-    
 
-    
-if __name__=="__main__":
+
+# def exportData():
+
+
+if __name__ == "__main__":
     port = 65432
     hostname = socket.gethostname()
     address = socket.gethostbyname(hostname)
