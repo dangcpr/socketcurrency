@@ -11,18 +11,23 @@ import os
 # host = '127.0.0.1'
 # port = 65432
 def CheckIfExit(Username, Password):
-    User = Username + '_' + Password
+    #User = Username + '_' + Password
     with open ('Account.json', 'r') as f:
         Acc_List = json.load(f)
-        if User in Acc_List['Account']:
-            return '1'
+        if (Username in Acc_List['Account']):
+            index = Acc_List['Account'].index(Username)
+            if (Acc_List['Pass'][index] == Password):
+                return '1'
+            else:
+                return '0'
         else: return '0'
 
 def SaveAccount(Username, Password):
-    User = Username + '_' + Password
+    #User = Username + '_' + Password
     with open('Account.json', 'r+') as f:
         Acc_list = json.load(f)
-        Acc_list['Account'].append(User)
+        Acc_list['Account'].append(Username)
+        Acc_list['Pass'].append(Password)
         f.seek(0)
         json.dump(Acc_list, f, indent = 4)
 
