@@ -6,6 +6,8 @@ import socket
 import tkinter as tk
 import sys
 import os
+import _thread
+import fnmatch
 
 def SignUp_client(s):
     check = None
@@ -54,10 +56,11 @@ def runClient(host, port):
                 print('Da xong')
                 data = s.recv(1024)
                 print('Received ', data.decode('utf8'))
+            
     except socket.error as err:
         print("Loi ket noi: ", err)
+        os.system("pause")
         sys.exit(1)
-
 
 def getData(file):
     with open(file, 'r') as f:
@@ -90,5 +93,6 @@ if __name__ == "__main__":
 
     host = input('Host: ')
     port = input('Port: ')
+
     runClient(host, int(port))
     os.system("pause")

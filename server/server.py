@@ -6,8 +6,10 @@ import socket
 import tkinter as tk
 import sys
 import os
+import threading
+import fnmatch
 
-
+connectAddress = []
 # host = '127.0.0.1'
 # port = 65432
 def CheckIfExit(Username, Password):
@@ -63,11 +65,12 @@ def Login_server(s):
             return
 
 
-def runServer(s):
+def runServer(conn, addr):
     try:
-        conn, addr = s.accept()
         with conn:
             print('Duoc ket noi boi', addr)
+            connectAddress.append(conn)
+            print(connectAddress)
             DNDK = conn.recv(1).decode('utf8')
             if DNDK == '1':
                 Login_server(conn)
@@ -82,9 +85,28 @@ def runServer(s):
                 print(str_data)
                 str_send = 'Mon loz'
                 conn.sendall(str_send.encode('utf8'))
+            print(addr, ' da ngat ket noi')
+            disAddr = str(addr)
+            index = connectAddress.index(conn)
+            connectAddress.pop(index)
+            dis = ''.join(['Client ', disAddr, ' da thoat'])
+            for i in connectAddress:
+                i.send(dis.encode('utf8'))
+
+
     except socket.error as err:
         print("Lỗi kết nối: ", err)
         sys.exit(1)
+
+def threadClient(s):
+    while True:
+        try:
+            conn, addr = s.accept()
+            thrr = threading.Thread(target = runServer, args=(conn, addr))
+            thrr.daemon = True
+            thrr.start()
+        except:
+            print('Error')
 
 
 def data():
@@ -133,9 +155,9 @@ if __name__ == "__main__":
         print('Da tao socket')
     except socket.error as err:
         print('Loi tao socket', err)
-
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((address, port))
     s.listen(1)
     #print('Xin chào các bạn'.encode('utf-16'))
     #exportCurrency()
-    runServer(s)
+    threadClient(s)
