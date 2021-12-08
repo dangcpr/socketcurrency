@@ -1,5 +1,6 @@
 import requests
 import json
+from requests.api import get
 import schedule
 import time
 import socket
@@ -110,28 +111,41 @@ def threadClient(s):
 
 
 def data():
-    url = "https://currency-converter5.p.rapidapi.com/currency/convert"
+    apiKey = getAPIKey()
+    url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
 
-    querystring = {"format": "json", "from": "AUD", "to": "CAD", "amount": "1"}
+    payload={}
+    headers = {}
 
-    headers = {
-        'x-rapidapi-host': "currency-converter5.p.rapidapi.com",
-        'x-rapidapi-key': "eeedbfa64emshbdd697d5f8b99b5p13bbcdjsn9ce5e073eaa1"
-    }
+    response = requests.request("GET", url, headers=headers, data=payload)
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    #print(response.text)
     json_object = json.loads(response.text)
-    print(json.dumps(json_object, indent=3))
+    
+    #print(json.dumps(json_object, indent=3))
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
 
 
-def updateLocalIPEvery30mins():
+
+def updateData():
     data()
-    schedule.every(30).minutes.do(data)
+    schedule.every(10).seconds.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
+
+def getAPIKey():
+    url = "https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate"
+
+    payload={}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    data_dict = json.loads(response.text)
+
+    return data_dict["results"]
 
 
 def exportCurrency():
@@ -160,4 +174,6 @@ if __name__ == "__main__":
     s.listen(1)
     #print('Xin chào các bạn'.encode('utf-16'))
     #exportCurrency()
-    threadClient(s)
+    #print(getAPIKey())
+    data()
+    #threadClient(s)
