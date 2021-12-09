@@ -18,7 +18,7 @@ def SignUp_client(s):
         s.sendall(Password.encode('utf8'))
         check = s.recv(1).decode('utf8')
         if check == '1':
-            print('Tài khoản đã tồn tại, hãy thử lại! ')
+            print('Tên đăng nhập hoặc mật khẩu không đúng, hãy thử lại! ')
     print('Đã đăng ký thành công!')
 
 def Login_client(s):
@@ -38,6 +38,7 @@ def Login_client(s):
                 return
     print('Đã đăng nhập thành công!')
 
+
 def runClient(host, port):
     try:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -52,11 +53,26 @@ def runClient(host, port):
             while k != 'x':
                 # msg = 'Hello World'
                 k = input('Client: ')
-                s.sendall(k.encode('utf8'))
-                print('Da xong')
-                data = s.recv(1024)
-                print('Received ', data.decode('utf8'))
-            
+                if k == 'search':
+                    s.sendall(k.encode('utf8'))
+                    s.recv(1024)
+                    curUnit = input('Hay nhap don vi tien te: ')
+                    s.sendall(curUnit.encode('utf8'))
+                    buy_cash = s.recv(1024).decode('utf8')
+                    s.sendall('Da nhan duoc buy_cash'.encode('utf8'))
+                    print('Buy Cash: ', buy_cash)
+                    buy_transfer = s.recv(1024).decode('utf8')
+                    s.sendall('Da nhan duoc buy_transfer'.encode('utf8'))
+                    print('Buy Transfer: ', buy_transfer)
+                    sell = s.recv(1024).decode('utf8')
+                    s.sendall('Da nhan duoc sell'.encode('utf8'))
+                    print('Sell: ', sell)
+                else:
+                    s.sendall(k.encode('utf8'))
+                    print('Da xong')
+                    data = s.recv(1024)
+                    print('Received ', data.decode('utf8'))
+
     except socket.error as err:
         print("Loi ket noi: ", err)
         os.system("pause")
