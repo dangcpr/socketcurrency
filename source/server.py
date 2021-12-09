@@ -7,35 +7,8 @@ import socket
 import tkinter as tk
 import sys
 import os
-<<<<<<< HEAD
 import threading
 import fnmatch
-=======
-
-#host = '127.0.0.1'
-#port = 65432
-
-    
-def runServer(s):
-    try:
-        conn, addr = s.accept()
-        with conn:
-            print('Duoc ket noi boi', addr)
-            str_data = None
-            while str_data != 'x':
-                data = conn.recv(1024)
-                str_data = data.decode('utf8')
-                if not str_data:
-                    break
-                print(str_data)
-                str_send = 'Mon loz'
-                conn.sendall(str_send.encode('utf8'))
-    except socket.error as err:
-        print("Lỗi kết nối: ", err)
-        sys.exit(1)
-
-    
->>>>>>> 353485b821aed34a316dc35cc936a36b786c23e2
 
 connectAddress = []
 # host = '127.0.0.1'
