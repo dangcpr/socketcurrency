@@ -130,22 +130,25 @@ def data():
 
 def updateData():
     data()
-    schedule.every(10).seconds.do(data)
+    schedule.every(30).minutes.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
 
 def getAPIKey():
-    url = "https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate"
+    try:
+        url = "https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate"
 
-    payload={}
-    headers = {}
+        payload={}
+        headers = {}
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+        response = requests.request("GET", url, headers=headers, data=payload)
 
-    data_dict = json.loads(response.text)
+        data_dict = json.loads(response.text)
 
-    return data_dict["results"]
+        return data_dict["results"]
+    except:
+        print('Không lấy được dữ liệu')
 
 
 def exportCurrency():
@@ -175,5 +178,7 @@ if __name__ == "__main__":
     #print('Xin chào các bạn'.encode('utf-16'))
     #exportCurrency()
     #print(getAPIKey())
-    data()
-    #threadClient(s)
+    #data()
+    threadClient(s)
+    print('Không lấy được dữ liệu')
+    os.system('pause')
