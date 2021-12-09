@@ -1,28 +1,36 @@
 import requests
 import json
+from requests.api import get
 import schedule
 import time
 import socket
 import tkinter as tk
 import sys
 import os
+import threading
+import fnmatch
 
-
+connectAddress = []
 # host = '127.0.0.1'
 # port = 65432
 def CheckIfExit(Username, Password):
-    User = Username + '_' + Password
+    #User = Username + '_' + Password
     with open ('Account.json', 'r') as f:
         Acc_List = json.load(f)
-        if User in Acc_List['Account']:
-            return '1'
+        if (Username in Acc_List['Account']):
+            index = Acc_List['Account'].index(Username)
+            if (Acc_List['Pass'][index] == Password):
+                return '1'
+            else:
+                return '0'
         else: return '0'
 
 def SaveAccount(Username, Password):
-    User = Username + '_' + Password
+    #User = Username + '_' + Password
     with open('Account.json', 'r+') as f:
         Acc_list = json.load(f)
-        Acc_list['Account'].append(User)
+        Acc_list['Account'].append(Username)
+        Acc_list['Pass'].append(Password)
         f.seek(0)
         json.dump(Acc_list, f, indent = 4)
 
@@ -58,11 +66,12 @@ def Login_server(s):
             return
 
 
-def runServer(s):
+def runServer(conn, addr):
     try:
-        conn, addr = s.accept()
         with conn:
             print('Duoc ket noi boi', addr)
+            connectAddress.append(conn)
+            print(connectAddress)
             DNDK = conn.recv(1).decode('utf8')
             if DNDK == '1':
                 Login_server(conn)
@@ -77,34 +86,74 @@ def runServer(s):
                 print(str_data)
                 str_send = 'Mon loz'
                 conn.sendall(str_send.encode('utf8'))
+            print(addr, ' da ngat ket noi')
+            disAddr = str(addr)
+            index = connectAddress.index(conn)
+            connectAddress.pop(index)
+            dis = ''.join(['Client ', disAddr, ' da thoat'])
+            for i in connectAddress:
+                i.send(dis.encode('utf8'))
+
+
     except socket.error as err:
         print("Lỗi kết nối: ", err)
         sys.exit(1)
 
+def threadClient(s):
+    while True:
+        try:
+            conn, addr = s.accept()
+            thrr = threading.Thread(target = runServer, args=(conn, addr))
+            thrr.daemon = True
+            thrr.start()
+        except:
+            print('Error')
+
 
 def data():
-    url = "https://currency-converter5.p.rapidapi.com/currency/convert"
+    apiKey = getAPIKey()
+    url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
 
-    querystring = {"format": "json", "from": "AUD", "to": "CAD", "amount": "1"}
+    payload={}
+    headers = {}
 
-    headers = {
-        'x-rapidapi-host': "currency-converter5.p.rapidapi.com",
-        'x-rapidapi-key': "eeedbfa64emshbdd697d5f8b99b5p13bbcdjsn9ce5e073eaa1"
-    }
+    response = requests.request("GET", url, headers=headers, data=payload)
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    #print(response.text)
     json_object = json.loads(response.text)
-    print(json.dumps(json_object, indent=3))
+    
+    #print(json.dumps(json_object, indent=3))
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
 
 
-def updateLocalIPEvery30mins():
+
+def updateData():
     data()
-    schedule.every(30).minutes.do(data)
+    schedule.every(10).seconds.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
+
+def getAPIKey():
+    url = "https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate"
+
+    payload={}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    data_dict = json.loads(response.text)
+
+    return data_dict["results"]
+
+
+def exportCurrency():
+    with open('currency.json',encoding="utf-16-le") as f:
+        json_data = json.load(f)
+        print(json.dumps(json_data, indent = 3))
+
+
 
 
 # def exportData():
@@ -120,8 +169,11 @@ if __name__ == "__main__":
         print('Da tao socket')
     except socket.error as err:
         print('Loi tao socket', err)
-
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((address, port))
     s.listen(1)
-
-    runServer(s)
+    #print('Xin chào các bạn'.encode('utf-16'))
+    #exportCurrency()
+    #print(getAPIKey())
+    data()
+    #threadClient(s)

@@ -1,5 +1,10 @@
 {
-  "Account":[
-    "dang252_123456"
-  ]
+    "Account": [
+        "dangcpr",
+        "admin"
+    ],
+    "Pass": [
+        "dangcpr",
+        "admin"
+    ]
 }
