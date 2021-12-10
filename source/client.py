@@ -18,7 +18,7 @@ def SignUp_client(s):
         s.sendall(Password.encode('utf8'))
         check = s.recv(1).decode('utf8')
         if check == '1':
-            print('Tên đăng nhập hoặc mật khẩu không đúng, hãy thử lại! ')
+            print('Tên đăng nhập đã tồn tại, hãy thử lại! ')
     print('Đã đăng ký thành công!')
 
 def Login_client(s):
@@ -31,7 +31,7 @@ def Login_client(s):
         s.sendall(Password.encode('utf8'))
         check = s.recv(1).decode('utf8')
         if check != '1':
-            check2 = input('Không tồn tại tài khoản! Nhấn 1 để thử lại hoặc ấn 2 để đăng ký:')
+            check2 = input('Tên đăng nhập hoặc tài khoản không đúng! Nhấn 1 để thử lại hoặc ấn 2 để đăng ký:')
             s.sendall(check2.encode('utf8'))
             if check2 == '2':
                 SignUp_client(s)
