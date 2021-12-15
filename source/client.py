@@ -109,7 +109,7 @@ def Login():
     Username = UsernameEntry.get()
     s.sendall(Username.encode('utf8'))
     Password = PasswordEntry.get()
-    s.sendall(Password.encode('utf8'))
+    if(Password != ""): s.sendall(Password.encode('utf8'))
     check = s.recv(1).decode('utf8')
     if check != '1':
         Thongbao_Login('Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại hoặc tạo tài khoản!')
