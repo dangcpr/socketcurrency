@@ -18,11 +18,10 @@ def Thongbao(str): #thông báo xuất hiện và ấn ok để tắt
     Noti=tk.Tk()
     Noti.title("Thông báo")
     tk.Label(Noti,text=str).pack()
-    tk.Button(Noti, text="OK", command=lambda: Noti.destroy, width=10).place(relx=0.5, rely=0.7,anchor='center')
+    tk.Button(Noti, text="OK", command=lambda: Noti.destroy(), width=10).place(relx=0.5, rely=0.7,anchor='center')
     #Noti.after(1000,lambda :Noti.destroy())
     Noti.geometry('300x50')
     Noti.mainloop()
-
 
 def Thongbao_Login(str):   #Thông báo có 2 lựa chọn, chỉ xuất hiện khi nhập sai lúc Login
     Noti=tk.Tk()
@@ -93,35 +92,50 @@ def getData(file):
         data = json.load(f)
     return data
 
+def Exit():
+    s.close()
+    root.destroy();
+
 def SignUp():
     Username = UsernameEntry.get()
-    s.sendall(Username.encode('utf8'))
     Password = PasswordEntry.get()
-    s.sendall(Password.encode('utf8'))
-    check = s.recv(1).decode('utf8')
-    if check != '0':
-        Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
+    if len(Username) != 0 and len(Password) != 0:
+        s.sendall(Username.encode('utf8'))
+        s.sendall(Password.encode('utf8'))
+        check = s.recv(1).decode('utf8')
+        if check != '0':
+            Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
+        else:
+            Hide_SignUpForm()
+            tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
+            s.sendall('x'.encode('utf8'))
     else:
-        Hide_SignUpForm()
-        tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
+        Thongbao("Vui Lòng nhập lại!")
 
 def Login():
     Username = UsernameEntry.get()
-    s.sendall(Username.encode('utf8'))
     Password = PasswordEntry.get()
-    if(Password != ""): s.sendall(Password.encode('utf8'))
-    check = s.recv(1).decode('utf8')
-    if check != '1':
-        Thongbao_Login('Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại hoặc tạo tài khoản!')
+    if len(Username) != 0 and len(Password) != 0:
+        s.sendall(Username.encode('utf8'))
+        s.sendall(Password.encode('utf8'))
+        check = s.recv(1).decode('utf8')
+        if check != '1':
+            Thongbao_Login('Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại hoặc tạo tài khoản!')
+        else:
+            Hide_LoginForm()
+            tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
+            s.sendall('x'.encode('utf8'))
     else:
-        Hide_LoginForm()
-        tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
+        Thongbao("Vui Lòng nhập lại!")
 
 def Get_IP_port(HostEntry,PortEntry):
     global host, port
     host = HostEntry.get()
     port = PortEntry.get()
-    Check_IP_port()
+    if len(host) != 0 and len(port) != 0:
+        Check_IP_port()
+    else:
+        Thongbao("Vui Lòng nhập lại!")
 
 def SignUpForm(): #Tạo các ô điền Login
     UsernameLabel.place(relx=0.3, rely=0.5)
@@ -151,15 +165,14 @@ def ChoosoToSignUp(LoginButton, SignUpButton):
 
 def ChooseForm(): #Tạo ra lựa chọn cho người dùng sau khi nhập host và port
     LoginButton = tk.Button(root, text="LogIn", height=3, width=10, command=lambda: ChoosoToLogin(LoginButton,SignUpButton))
-    LoginButton.place(relx=0.5, rely=0.5, anchor="center")
+    LoginButton.place(relx=0.5, rely=0.4, anchor="center")
     SignUpButton = tk.Button(root, text="SignUp", height=3, width=10, command=lambda: ChoosoToSignUp(LoginButton,SignUpButton))
-    SignUpButton.place(relx=0.5, rely=0.7, anchor="center")
-
-
+    SignUpButton.place(relx=0.5, rely=0.6, anchor="center")
+    ExitButton.place(relx=0.5, rely=0.8, anchor="center")
 
 root = tk.Tk()
 #các thông tin tại màn hình chính
-tk.Label(root, text=" TỶ GIÁ TIỀN TỆ VIỆT NAM", font=("Arial", 25)).place(relx=0.5, rely=0.3, anchor='center')
+tk.Label(root, text=" TỶ GIÁ TIỀN TỆ VIỆT NAM", font=("Arial", 25)).place(relx=0.5, rely=0.25, anchor='center')
 HostLabel=tk.Label(root, text="Host")
 HostLabel.place(relx=0.3, rely=0.5)
 HostEntry = tk.Entry(root)
@@ -184,5 +197,6 @@ PasswordEntry = tk.Entry(root)
 Click2 = tk.Button(root, text="LogIn", command=lambda: Login())
 Click3 = tk.Button(root, text="SignUP", command=lambda: SignUp())
 
+ExitButton = tk.Button(root, text="Thoát", height=3, width=10, command = lambda: Exit())
 root.geometry("600x400")
 root.mainloop()
