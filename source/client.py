@@ -94,7 +94,7 @@ def getData(file):
 
 def Exit():
     s.close()
-    root.destroy();
+    root.destroy()
 
 def SignUp():
     Username = UsernameEntry.get()
