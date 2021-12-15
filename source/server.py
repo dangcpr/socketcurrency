@@ -40,36 +40,37 @@ def SignUp_server(s):
     while True:
         Username = s.recv(1024).decode("utf8")
         Password = s.recv(1024).decode("utf8")
-        checkAcc = CheckIfExit(Username, Password)
-        if checkAcc == '1':
-            s.sendall('1'.encode('utf8'))
-        else:
-            s.sendall('0'.encode('utf8'))
-            SaveAccount(Username, Password)
-            return
-        check = s.recv(1).decode('utf8')
-        if check == '0':
-            Login_server(s)
-            return
-
-
+        if len(Username) != 0 and len(Password) != 0: #chỉ xảy ra khi người dùng tắt client lúc đăng ký
+            checkAcc = CheckIfExit(Username, Password)
+            if checkAcc == '1':
+                s.sendall('1'.encode('utf8'))
+            else:
+                s.sendall('0'.encode('utf8'))
+                SaveAccount(Username, Password)
+                return
+            check = s.recv(1).decode('utf8')
+            if check == '0':
+                Login_server(s)
+                return
+        else: return
 def Login_server(s):
     check = None
     checkAcc = None
     while True:
         Username = s.recv(1024).decode("utf8")
         Password = s.recv(1024).decode("utf8")
-        checkAcc = CheckIfExit(Username, Password)
-        if checkAcc == '0':
-            s.sendall('0'.encode('utf8'))
-        else:
-            s.sendall('1'.encode('utf8'))
-            return
-        check = s.recv(1).decode('utf8')
-        if check == '0':
-            SignUp_server(s)
-            return
-
+        if len(Username) != 0 and len(Password) != 0:  #chỉ xảy ra khi người dùng tắt client lúc đăng ký
+            checkAcc = CheckIfExit(Username, Password)
+            if checkAcc == '0':
+                s.sendall('0'.encode('utf8'))
+            else:
+                s.sendall('1'.encode('utf8'))
+                return
+            check = s.recv(1).decode('utf8')
+            if check == '0':
+                SignUp_server(s)
+                return
+        else: return
 
 def runServer(conn, addr):
     try:
@@ -79,10 +80,8 @@ def runServer(conn, addr):
             print(connectAddress)
             DNDK = conn.recv(1).decode('utf8')
             if DNDK == '1':
-                print(DNDK)
                 Login_server(conn)
             else:
-                print(DNDK)
                 SignUp_server(conn)
             str_data = None
             while str_data != 'x':
@@ -165,7 +164,5 @@ if __name__ == "__main__":
         print('Loi tao socket', err)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((address, port))
-    s.listen(1)
-    #print('Xin chào các bạn'.encode('utf-16'))
-    #exportCurrency()
+    s.listen(5)
     threadClient(s)
