@@ -1,6 +1,5 @@
 import requests
 import json
-from requests.api import get
 import schedule
 import time
 import socket
@@ -13,6 +12,7 @@ import fnmatch
 connectAddress = []
 # host = '127.0.0.1'
 # port = 65432
+
 def CheckIfExit(Username, Password):
     #User = Username + '_' + Password
     with open ('Account.json', 'r') as f:
@@ -35,36 +35,55 @@ def SaveAccount(Username, Password):
         json.dump(Acc_list, f, indent = 4)
 
 def SignUp_server(s):
+    check = None
     checkAcc = None
     while True:
         Username = s.recv(1024).decode("utf8")
         Password = s.recv(1024).decode("utf8")
-        checkAcc = CheckIfExit(Username, Password)
-        if checkAcc == '1':
-            s.sendall('1'.encode('utf8'))
-        else:
-            s.sendall('0'.encode('utf8'))
-            SaveAccount(Username, Password)
-            return
-
-
+        if len(Username) != 0 and len(Password) != 0 and Username != 'x' and Password != 'x': #chỉ xảy ra khi người dùng tắt client lúc đăng ký
+            checkAcc = CheckIfExit(Username, Password)
+            if checkAcc == '1':
+                s.sendall('1'.encode('utf8'))
+            elif checkAcc == '0':
+                s.sendall('0'.encode('utf8'))
+                SaveAccount(Username, Password)
+                return
+            check = s.recv(1).decode('utf8')
+            if check == '0':
+                Login_server(s)
+                return
+        else: return
 def Login_server(s):
     check = None
     checkAcc = None
     while True:
         Username = s.recv(1024).decode("utf8")
         Password = s.recv(1024).decode("utf8")
-        checkAcc = CheckIfExit(Username, Password)
-        if checkAcc == '0':
-            s.sendall('0'.encode('utf8'))
+        if len(Username) != 0 and len(Password) != 0:  #chỉ xảy ra khi người dùng tắt client lúc đăng ký
+            checkAcc = CheckIfExit(Username, Password)
+            if checkAcc == '0':
+                s.sendall('0'.encode('utf8'))
+                noti = s.recv(1024).decode('utf8')
+                print(noti)
+            else:
+                s.sendall('1'.encode('utf8'))
+                noti = s.recv(1024).decode('utf8')
+                print(noti)
+                return
+            check = s.recv(1).decode('utf8')
+            if check == '0':
+                SignUp_server(s)
+                return
         else:
-            s.sendall('1'.encode('utf8'))
             return
-        check = s.recv(1).decode('utf8')
-        if check == '2':
-            SignUp_server(s)
-            return
-
+def closeClient(conn, addr):
+    print(addr, ' da ngat ket noi')
+    disAddr = str(addr)
+    index = connectAddress.index(conn)
+    connectAddress.pop(index)
+    dis = ''.join(['Client ', disAddr, ' da thoat'])
+    for i in connectAddress:
+        i.send(dis.encode('utf8'))
 
 def runServer(conn, addr):
     try:
@@ -75,26 +94,24 @@ def runServer(conn, addr):
             DNDK = conn.recv(1).decode('utf8')
             if DNDK == '1':
                 Login_server(conn)
-            else:
+            elif DNDK == '0':
                 SignUp_server(conn)
+            else:
+                closeClient(conn, addr)
+                return
             str_data = None
             while str_data != 'x':
                 data = conn.recv(1024)
                 str_data = data.decode('utf8')
                 if not str_data:
                     break
-                print(str_data)
-                str_send = 'Mon loz'
-                conn.sendall(str_send.encode('utf8'))
-            print(addr, ' da ngat ket noi')
-            disAddr = str(addr)
-            index = connectAddress.index(conn)
-            connectAddress.pop(index)
-            dis = ''.join(['Client ', disAddr, ' da thoat'])
-            for i in connectAddress:
-                i.send(dis.encode('utf8'))
-
-
+                if(str_data != 'x'):
+                    print(str_data)
+                    str_send = 'Mon loz'
+                    conn.sendall(str_send.encode('utf8'))
+                else:
+                    break
+            closeClient(conn, addr)
     except socket.error as err:
         print("Lỗi kết nối: ", err)
         sys.exit(1)
@@ -111,41 +128,28 @@ def threadClient(s):
 
 
 def data():
-    apiKey = getAPIKey()
-    url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
+    url = "https://currency-converter5.p.rapidapi.com/currency/convert"
 
-    payload={}
-    headers = {}
+    querystring = {"format": "json", "from": "AUD", "to": "CAD", "amount": "1"}
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+    headers = {
+        'x-rapidapi-host': "currency-converter5.p.rapidapi.com",
+        'x-rapidapi-key': "eeedbfa64emshbdd697d5f8b99b5p13bbcdjsn9ce5e073eaa1"
+    }
 
-    #print(response.text)
+    response = requests.request("GET", url, headers=headers, params=querystring)
     json_object = json.loads(response.text)
-    
-    #print(json.dumps(json_object, indent=3))
+    print(json.dumps(json_object, indent=3))
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
 
 
-
-def updateData():
+def updateLocalIPEvery30mins():
     data()
-    schedule.every(10).seconds.do(data)
+    schedule.every(30).minutes.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
-
-def getAPIKey():
-    url = "https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate"
-
-    payload={}
-    headers = {}
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    data_dict = json.loads(response.text)
-
-    return data_dict["results"]
 
 
 def exportCurrency():
@@ -171,9 +175,5 @@ if __name__ == "__main__":
         print('Loi tao socket', err)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.bind((address, port))
-    s.listen(1)
-    #print('Xin chào các bạn'.encode('utf-16'))
-    #exportCurrency()
-    #print(getAPIKey())
-    data()
-    #threadClient(s)
+    s.listen(5)
+    threadClient(s)
