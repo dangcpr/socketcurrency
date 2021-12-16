@@ -40,11 +40,11 @@ def SignUp_server(s):
     while True:
         Username = s.recv(1024).decode("utf8")
         Password = s.recv(1024).decode("utf8")
-        if len(Username) != 0 and len(Password) != 0: #chỉ xảy ra khi người dùng tắt client lúc đăng ký
+        if len(Username) != 0 and len(Password) != 0 and Username != 'x' and Password != 'x': #chỉ xảy ra khi người dùng tắt client lúc đăng ký
             checkAcc = CheckIfExit(Username, Password)
             if checkAcc == '1':
                 s.sendall('1'.encode('utf8'))
-            else:
+            elif checkAcc == '0':
                 s.sendall('0'.encode('utf8'))
                 SaveAccount(Username, Password)
                 return
@@ -63,14 +63,27 @@ def Login_server(s):
             checkAcc = CheckIfExit(Username, Password)
             if checkAcc == '0':
                 s.sendall('0'.encode('utf8'))
+                noti = s.recv(1024).decode('utf8')
+                print(noti)
             else:
                 s.sendall('1'.encode('utf8'))
+                noti = s.recv(1024).decode('utf8')
+                print(noti)
                 return
             check = s.recv(1).decode('utf8')
             if check == '0':
                 SignUp_server(s)
                 return
-        else: return
+        else:
+            return
+def closeClient(conn, addr):
+    print(addr, ' da ngat ket noi')
+    disAddr = str(addr)
+    index = connectAddress.index(conn)
+    connectAddress.pop(index)
+    dis = ''.join(['Client ', disAddr, ' da thoat'])
+    for i in connectAddress:
+        i.send(dis.encode('utf8'))
 
 def runServer(conn, addr):
     try:
@@ -81,26 +94,24 @@ def runServer(conn, addr):
             DNDK = conn.recv(1).decode('utf8')
             if DNDK == '1':
                 Login_server(conn)
-            else:
+            elif DNDK == '0':
                 SignUp_server(conn)
+            else:
+                closeClient(conn, addr)
+                return
             str_data = None
             while str_data != 'x':
                 data = conn.recv(1024)
                 str_data = data.decode('utf8')
                 if not str_data:
                     break
-                print(str_data)
-                str_send = 'Mon loz'
-                conn.sendall(str_send.encode('utf8'))
-            print(addr, ' da ngat ket noi')
-            disAddr = str(addr)
-            index = connectAddress.index(conn)
-            connectAddress.pop(index)
-            dis = ''.join(['Client ', disAddr, ' da thoat'])
-            for i in connectAddress:
-                i.send(dis.encode('utf8'))
-
-
+                if(str_data != 'x'):
+                    print(str_data)
+                    str_send = 'Mon loz'
+                    conn.sendall(str_send.encode('utf8'))
+                else:
+                    break
+            closeClient(conn, addr)
     except socket.error as err:
         print("Lỗi kết nối: ", err)
         sys.exit(1)
