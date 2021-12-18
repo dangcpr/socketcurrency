@@ -106,7 +106,7 @@ def Exit():
         s.close()
         root.destroy()
     except:
-        ThongbaoServer("Server đã ngắt kết nối")
+        ThongbaoServer("Không kết nối được với server.")
         s.close()
 
 def SignUp():
@@ -117,9 +117,12 @@ def SignUp():
             s.sendall(Username.encode('utf8'))
             s.sendall(Password.encode('utf8'))
             check = s.recv(1).decode('utf8')
+            
             if check != '0':
+                s.sendall('Đăng nhập thất bại'.encode('utf8'))
                 Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
             else:
+                s.sendall('Đăng nhập thành công'.encode('utf8'))
                 Hide_SignUpForm()
                 tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
                 s.sendall('Client xong'.encode('utf8'))
@@ -127,6 +130,7 @@ def SignUp():
             Thongbao("Vui Lòng nhập lại!")
     except:
         ThongbaoServer("Không kết nối được với Server.")
+        s.close()
 
 def Login():
     Username = UsernameEntry.get()
@@ -137,8 +141,10 @@ def Login():
             s.sendall(Password.encode('utf8'))
             check = s.recv(1).decode('utf8')
             if check != '1':
+                s.sendall('Đăng nhập thất bại'.encode('utf8'))
                 Thongbao_Login('Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại hoặc tạo tài khoản!')
             else:
+                s.sendall('Đăng nhập thành công'.encode('utf8'))
                 Hide_LoginForm()
                 tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
                 s.sendall('Client xong'.encode('utf8'))
@@ -147,26 +153,31 @@ def Login():
             Thongbao("Vui Lòng nhập lại!")
     except:
         ThongbaoServer("Không kết nối được với Server.")
+        s.close()
 
 def searchData():
-    while True:
-        k = input("Mời nhập từ khoá search: ")
-        s.sendall(k.encode('utf8'))
-        t = s.recv(1024).decode('utf8')
-        if (t == '1'):
-            k = input('Nhập đơn vị: ')
+    try:
+        while True:
+            k = input("Mời nhập từ khoá search: ")
             s.sendall(k.encode('utf8'))
-            if (t == '-1'): k = input('Nhập đơn vị: ')
-            else: 
-                buy_cash = s.recv(1024).decode('utf8')
-                s.sendall('Da nhan buy cash'.encode('utf8'))
-                print("buy_cash: ", buy_cash)
-                buy_transfer = s.recv(1024).decode('utf8')
-                s.sendall('Da nhan buy transfer'.encode('utf8'))
-                print("buy_transfer: ", buy_transfer)
-                sell = s.recv(1024).decode('utf8')
-                s.sendall('Da nhan sell'.encode('utf8'))
-                print("sell: ", sell)
+            t = s.recv(1024).decode('utf8')
+            if (t == '1'):
+                k = input('Nhập đơn vị: ')
+                s.sendall(k.encode('utf8'))
+                if (t == '-1'): k = input('Nhập đơn vị: ')
+                else: 
+                    buy_cash = s.recv(1024).decode('utf8')
+                    s.sendall('Da nhan buy cash'.encode('utf8'))
+                    print("buy_cash: ", buy_cash)
+                    buy_transfer = s.recv(1024).decode('utf8')
+                    s.sendall('Da nhan buy transfer'.encode('utf8'))
+                    print("buy_transfer: ", buy_transfer)
+                    sell = s.recv(1024).decode('utf8')
+                    s.sendall('Da nhan sell'.encode('utf8'))
+                    print("sell: ", sell)
+    except:
+        ThongbaoServer("Không lấy được dữ liệu")
+        s.close()
                      
 def Get_IP_port(HostEntry,PortEntry):
     global host, port

@@ -9,6 +9,7 @@ import os
 import threading
 import fnmatch
 
+
 connectAddress = []
 # host = '127.0.0.1'
 # port = 65432
@@ -64,11 +65,11 @@ def Login_server(s):
             if checkAcc == '0':
                 s.sendall('0'.encode('utf8'))
                 noti = s.recv(1024).decode('utf8')
-                print(noti)
+                print(noti.encode('utf8'))
             else:
                 s.sendall('1'.encode('utf8'))
                 noti = s.recv(1024).decode('utf8')
-                print(noti)
+                print(noti.encode('utf8'))
                 return
             check = s.recv(1).decode('utf8')
             if check == '0':
