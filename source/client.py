@@ -142,11 +142,32 @@ def Login():
                 Hide_LoginForm()
                 tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
                 s.sendall('Client xong'.encode('utf8'))
+                searchData()
         else:
             Thongbao("Vui Lòng nhập lại!")
     except:
         ThongbaoServer("Không kết nối được với Server.")
 
+def searchData():
+    while True:
+        k = input("Mời nhập từ khoá search: ")
+        s.sendall(k.encode('utf8'))
+        t = s.recv(1024).decode('utf8')
+        if (t == '1'):
+            k = input('Nhập đơn vị: ')
+            s.sendall(k.encode('utf8'))
+            if (t == '-1'): k = input('Nhập đơn vị: ')
+            else: 
+                buy_cash = s.recv(1024).decode('utf8')
+                s.sendall('Da nhan buy cash'.encode('utf8'))
+                print("buy_cash: ", buy_cash)
+                buy_transfer = s.recv(1024).decode('utf8')
+                s.sendall('Da nhan buy transfer'.encode('utf8'))
+                print("buy_transfer: ", buy_transfer)
+                sell = s.recv(1024).decode('utf8')
+                s.sendall('Da nhan sell'.encode('utf8'))
+                print("sell: ", sell)
+                     
 def Get_IP_port(HostEntry,PortEntry):
     global host, port
     host = HostEntry.get()
@@ -217,6 +238,6 @@ Click2 = tk.Button(root, text="LogIn", command=lambda: Login())
 Click3 = tk.Button(root, text="SignUP", command=lambda: SignUp())
 
 ExitButton = tk.Button(root, text="Thoát", height=3, width=10, command = lambda: Exit())
-root.protocol("WM_DELETE_WINDOW", exit)
 root.geometry("600x400")
+root.protocol("WM_DELETE_WINDOW", Exit)
 root.mainloop()

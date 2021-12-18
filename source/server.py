@@ -77,13 +77,16 @@ def Login_server(s):
         else:
             return
 def closeClient(conn, addr):
-    print(addr, ' da ngat ket noi')
-    disAddr = str(addr)
-    index = connectAddress.index(conn)
-    connectAddress.pop(index)
-    dis = ''.join(['Client ', disAddr, ' da thoat'])
-    for i in connectAddress:
-        i.send(dis.encode('utf8'))
+    try:
+        print(addr, ' da ngat ket noi')
+        disAddr = str(addr)
+        index = connectAddress.index(conn)
+        connectAddress.pop(index)
+        dis = ''.join(['Client ', disAddr, ' da thoat'])
+        for i in connectAddress:
+            i.send(dis.encode('utf8'))
+    except:
+        print('Error')
 
 def runServer(conn, addr):
     try:
@@ -107,8 +110,15 @@ def runServer(conn, addr):
                     break
                 if(str_data != 'x'):
                     print(str_data)
-                    str_send = 'Mon loz'
-                    conn.sendall(str_send.encode('utf8'))
+                    if(str_data == 'search'):
+                        conn.sendall('1'.encode('utf8'))
+                        x = conn.recv(1024).decode('utf8')
+                        currencyUnit = findData(x,'data.json')
+                        check = currencyUnit.idxCurrency()
+                        if (check == '-1'): conn.sendall('-1'.encode('utf8'))
+                        else: exportData(conn, currencyUnit)
+                    else:
+                        conn.sendall('-1'.encode('utf8'))
                 else:
                     break
             closeClient(conn, addr)
@@ -128,25 +138,37 @@ def threadClient(s):
 
 
 def data():
-    url = "https://currency-converter5.p.rapidapi.com/currency/convert"
+    apiKey = getAPIKey()
 
-    querystring = {"format": "json", "from": "AUD", "to": "CAD", "amount": "1"}
+    url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
 
-    headers = {
-        'x-rapidapi-host': "currency-converter5.p.rapidapi.com",
-        'x-rapidapi-key': "eeedbfa64emshbdd697d5f8b99b5p13bbcdjsn9ce5e073eaa1"
-    }
+    payload={}
+    headers = {}
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
+    response = requests.request("GET", url, headers=headers, data=payload)
     json_object = json.loads(response.text)
-    print(json.dumps(json_object, indent=3))
+    print('Da update du lieu')
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump(json_object, f, ensure_ascii=False, indent=4)
 
+def getAPIKey():
+    try:
+        url = "https://vapi.vnappmob.com/api/request_api_key?scope=exchange_rate"
 
-def updateLocalIPEvery30mins():
+        payload={}
+        headers = {}
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+
+        data_dict = json.loads(response.text)
+
+        return data_dict["results"]
+    except:
+        print('Không lấy được dữ liệu')
+
+def updateData():
     data()
-    schedule.every(30).minutes.do(data)
+    schedule.every(60).seconds.do(data)
     while True:
         schedule.run_pending()
         time.sleep(0)
@@ -157,8 +179,54 @@ def exportCurrency():
         json_data = json.load(f)
         print(json.dumps(json_data, indent = 3))
 
+class findData:
+    def __init__(self,currencyUnit,fileName):
+        self.name = currencyUnit
+        self.file = fileName
+
+    def idxCurrency(self):
+        with open(self.file) as file:
+            file_Data = json.load(file)
+
+        for i, entry in enumerate(file_Data['results']):
+            if entry['currency'] == self.name:
+                return i
+
+        return "-1"
+
+    def buy_cash(self):
+        idx = self.idxCurrency()
+
+        with open(self.file) as file:
+            file_Data = json.load(file)
+        return file_Data['results'][idx]["buy_cash"]
 
 
+    def buy_transfer(self):
+        idx = self.idxCurrency()
+        with open(self.file) as file:
+            file_Data = json.load(file)
+        return file_Data['results'][idx]["buy_transfer"]
+
+    def sell(self):
+        idx = self.idxCurrency()
+        with open(self.file) as file:
+            file_Data = json.load(file)
+        return file_Data['results'][idx]["sell"]
+
+def exportData(conn, currencyUnit):
+    buy_cash = currencyUnit.buy_cash()
+    conn.sendall(str(buy_cash).encode('utf8'))
+    k = conn.recv(1024).decode('utf8')
+    print(k)
+    buy_transfer = currencyUnit.buy_transfer()
+    conn.sendall(str(buy_transfer).encode('utf8'))
+    k = conn.recv(1024).decode('utf8')
+    print(k)
+    sell = currencyUnit.sell()
+    conn.sendall(str(sell).encode('utf8'))
+    k = conn.recv(1024).decode('utf8')
+    print(k)
 
 # def exportData():
 
@@ -167,6 +235,9 @@ if __name__ == "__main__":
     port = 65432
     hostname = socket.gethostname()
     address = socket.gethostbyname(hostname)
+    thrr = threading.Thread(target = updateData, args=())
+    thrr.daemon = True
+    thrr.start()
     print(address)
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
