@@ -365,3 +365,11 @@ ExitButton = tk.Button(root, text="Thoát", height=3, width=10, command = lambda
 root.geometry("600x400")
 root.protocol("WM_DELETE_WINDOW", Exit)
 root.mainloop()
+
+
+
+
+
+
+
+
