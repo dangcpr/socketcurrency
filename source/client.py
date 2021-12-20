@@ -144,9 +144,8 @@ def SignUp():
                 Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
             else:
                 s.sendall('Đăng nhập thành công'.encode('utf8'))
-                Hide_SignUpForm()
-                tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
                 s.sendall('Client xong'.encode('utf8'))
+                mainPage()
         else:
             Thongbao("Vui Lòng nhập lại!")
     except:
@@ -166,9 +165,8 @@ def Login():
                 Thongbao_Login('Tài khoản này hiện tại đã đăng nhập! Vui lòng truy cập tài khoản khác hoặc đăng ký!')
             else:
                 Thongbao('Đăng nhập thành công')
-                Hide_LoginForm()
-                tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
                 s.sendall('Client xong'.encode('utf8'))
+                mainPage()
         else:
             Thongbao("Vui Lòng nhập lại!")
     except:
@@ -365,11 +363,3 @@ ExitButton = tk.Button(root, text="Thoát", height=3, width=10, command = lambda
 root.geometry("600x400")
 root.protocol("WM_DELETE_WINDOW", Exit)
 root.mainloop()
-
-
-
-
-
-
-
-
