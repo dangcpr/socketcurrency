@@ -237,6 +237,6 @@ Click2 = tk.Button(root, text="LogIn", command=lambda: Login())
 Click3 = tk.Button(root, text="SignUP", command=lambda: SignUp())
 
 ExitButton = tk.Button(root, text="Thoát", height=3, width=10, command = lambda: Exit())
-root.protocol("WM_DELETE_WINDOW", exit)
+root.protocol("WM_DELETE_WINDOW", Exit)
 root.geometry("600x400")
 root.mainloop()

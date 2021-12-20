@@ -1,0 +1,13 @@
+    curr = []
+    with open('data.json', 'r') as f:
+        data = json.load(f)
+        for currs in data["results"]:
+            curr.append(currs["currency"])
+    print(curr)
+    with open('currency.json', 'r+') as k:
+        currency = json.load(k)
+        for i in curr:
+            print(i)
+            currency["currencies"].append(str(i))
+            k.seek(0)
+            json.dump(currency, k, indent = 4)

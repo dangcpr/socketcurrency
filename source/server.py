@@ -252,5 +252,6 @@ try:
 except socket.error as err:
     Thongbao('Lỗi không thể tạo socket, vui lòng thử lại!', err)
     root.destroy()
+root.protocol("WM_DELETE_WINDOW", Shutdown)
 root.geometry("600x400")
 root.mainloop()
