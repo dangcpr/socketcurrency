@@ -1,4 +1,8 @@
 {
-    "Account": [],
-    "Pass": []
+    "Account": [
+        "admin"
+    ],
+    "Pass": [
+        "admin"
+    ]
 }

@@ -165,7 +165,7 @@ def Login():
                 Thongbao_Login('Tài khoản này hiện tại đã đăng nhập! Vui lòng truy cập tài khoản khác hoặc đăng ký!')
             else:
                 Thongbao('Đăng nhập thành công')
-                s.sendall('Client xong'.encode('utf8'))
+                #s.sendall('Client xong'.encode('utf8'))
                 mainPage()
         else:
             Thongbao("Vui Lòng nhập lại!")
