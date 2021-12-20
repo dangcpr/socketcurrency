@@ -8,6 +8,7 @@ import sys
 import os
 import _thread
 import fnmatch
+import threading
 
 host = None
 port = None
@@ -15,47 +16,63 @@ Username = None
 Password = None
 
 def Thongbao(str): #thông báo xuất hiện và ấn ok để tắt
-    Noti=tk.Tk()
+    Noti=tk.Toplevel(root)
     Noti.title("Thông báo")
     tk.Label(Noti,text=str).pack()
     tk.Button(Noti, text="OK", command=lambda: Noti.destroy(), width=10).place(relx=0.5, rely=0.7,anchor='center')
-    #Noti.after(1000,lambda :Noti.destroy())
+    Noti.after(2000,lambda :Noti.destroy())
     Noti.geometry('300x50')
-    Noti.mainloop()
+    #Noti.mainloop()
+
+def ThongbaoServer(str): #thông báo từ server
+    Noti=tk.Toplevel(root)
+    Noti.title("Thông báo")
+    tk.Label(Noti,text=str).pack()
+    tk.Button(Noti, text="OK", command=lambda: [Noti.destroy(), root.destroy()], width=10).place(relx=0.5, rely=0.7,anchor='center')
+    Noti.after(2000,lambda :Noti.destroy())
+    Noti.geometry('300x50')
 
 def Thongbao_Login(str):   #Thông báo có 2 lựa chọn, chỉ xuất hiện khi nhập sai lúc Login
-    Noti=tk.Tk()
+    Noti=tk.Toplevel(root)
     Noti.title("Thông báo")
     tk.Label(Noti,text=str,wraplength=250).place(relx=0.5,rely=0.3, anchor='center')
     tk.Button(Noti,text = "Nhập lại", command = lambda: TryAgain(Noti) , width=10).place(relx=0.2, rely=0.7,anchor='center')
     tk.Button(Noti, text="Đăng ký", command = lambda: GotoSignUp(Noti), width=10).place(relx=0.8, rely=0.7,anchor='center')
+    Noti.after(2000, lambda: Noti.destroy())
     Noti.geometry('300x100')
-    Noti.mainloop()
+    #Noti.mainloop()
 
 def Thongbao_SignUp(str):   #Thông báo có 2 lựa chọn, chỉ xuất hiện nếu nhập sai trong SignUp
-    Noti=tk.Tk()
+    Noti=tk.Toplevel(root)
     Noti.title("Thông báo")
     tk.Label(Noti,text=str,wraplength=250).place(relx=0.5,rely=0.3, anchor='center')
     tk.Button(Noti,text = "Nhập lại", command = lambda: TryAgain(Noti) , width=10).place(relx=0.2, rely=0.7,anchor='center')
     tk.Button(Noti, text="Đăng nhập", command = lambda: GotoLogin(Noti), width=10).place(relx=0.8, rely=0.7,anchor='center')
+    Noti.after(2000, lambda: Noti.destroy())
     Noti.geometry('300x100')
-    Noti.mainloop()
+    #Noti.mainloop()
 
 def TryAgain(Noti):
     s.sendall('1'.encode('utf8'))
     Noti.destroy()
 
 def GotoSignUp(Noti):
-    s.sendall('0'.encode('utf8'))
-    Noti.destroy()
-    Hide_LoginForm()
-    SignUpForm()
+    try:
+        s.sendall('0'.encode('utf8'))
+        Noti.destroy()
+        Hide_LoginForm()
+        SignUpForm()
+    except:
+        ThongbaoServer("Server đã ngắt kết nối! Vui lòng thử lại sau!")
 
 def GotoLogin(Noti):
-    s.sendall('0'.encode('utf8'))
-    Noti.destroy()
-    Hide_SignUpForm()
-    LoginForm()
+    try:
+        s.sendall('0'.encode('utf8'))
+        Noti.destroy()
+        Hide_SignUpForm()
+        LoginForm()
+    except:
+        ThongbaoServer("Server đã ngắt kết nối! Vui lòng thử lại sau!")
 
 def Hide_SignUpForm(): #xóa các ô nhập thông tin SignUp
     UsernameLabel.place_forget()
@@ -78,6 +95,7 @@ def Hide_Get_IP_port(): #Xóa các ô nhập host và port
     PortLabel.place_forget()
     Click1.place_forget()
 
+
 def Check_IP_port(): #kiểm tra xem có thể kết nối tới server không
     try:
         s.connect((host, int(port)))
@@ -93,40 +111,54 @@ def getData(file):
     return data
 
 def Exit():
-    s.close()
-    root.destroy();
+    try:
+        s.sendall('x'.encode('utf8'))
+        s.close()
+        root.destroy()
+    except:
+        ThongbaoServer("Server đã ngắt kết nối")
+        s.close()
 
 def SignUp():
     Username = UsernameEntry.get()
     Password = PasswordEntry.get()
-    if len(Username) != 0 and len(Password) != 0:
-        s.sendall(Username.encode('utf8'))
-        s.sendall(Password.encode('utf8'))
-        check = s.recv(1).decode('utf8')
-        if check != '0':
-            Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
+    try:
+        if len(Username) != 0 and len(Password) != 0:
+            s.sendall(Username.encode('utf8'))
+            s.sendall(Password.encode('utf8'))
+            check = s.recv(1).decode('utf8')
+            if check != '0':
+                Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
+            else:
+                Hide_SignUpForm()
+                tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
+                s.sendall('Client xong'.encode('utf8'))
         else:
-            Hide_SignUpForm()
-            tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
-            s.sendall('x'.encode('utf8'))
-    else:
-        Thongbao("Vui Lòng nhập lại!")
+            Thongbao("Vui Lòng nhập lại!")
+    except:
+        ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
 
 def Login():
     Username = UsernameEntry.get()
     Password = PasswordEntry.get()
-    if len(Username) != 0 and len(Password) != 0:
-        s.sendall(Username.encode('utf8'))
-        s.sendall(Password.encode('utf8'))
-        check = s.recv(1).decode('utf8')
-        if check != '1':
-            Thongbao_Login('Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại hoặc tạo tài khoản!')
+    try:
+        if len(Username) != 0 and len(Password) != 0:
+            s.sendall(Username.encode('utf8'))
+            s.sendall(Password.encode('utf8'))
+            check = s.recv(1).decode('utf8')
+            if check == '0':
+                Thongbao_Login('Sai tên đăng nhập hoặc mật khẩu! Vui lòng thử lại hoặc tạo tài khoản!')
+            elif check == '2':
+                Thongbao_Login('Tài khoản này hiện tại đã đăng nhập! Vui lòng truy cập tài khoản khác hoặc đăng ký!')
+            else:
+                Thongbao('Đăng nhập thành công')
+                Hide_LoginForm()
+                tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
+                s.sendall('Client xong'.encode('utf8'))
         else:
-            Hide_LoginForm()
-            tk.Label(root, text="trade").place(relx=0.5, rely=0.5, anchor='center')
-            s.sendall('x'.encode('utf8'))
-    else:
-        Thongbao("Vui Lòng nhập lại!")
+            Thongbao("Vui Lòng nhập lại!")
+    except:
+        ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
 
 def Get_IP_port(HostEntry,PortEntry):
     global host, port
@@ -152,16 +184,22 @@ def LoginForm(): #Tạo các ô điền Login
     Click2.place(relx=0.4, rely=0.6)
 
 def ChoosoToLogin(LoginButton, SignUpButton):
-    LoginButton.destroy() #xóa bỏ lựa chọn Login
-    SignUpButton.destroy() #xóa bỏ lựa chọn SignUp
-    LoginForm() #Tạo các ô điền Login
-    s.sendall('1'.encode('utf8')) #Gửi thông tin cho server
+    try:
+        LoginButton.destroy() #xóa bỏ lựa chọn Login
+        SignUpButton.destroy() #xóa bỏ lựa chọn SignUp
+        LoginForm() #Tạo các ô điền Login
+        s.sendall('1'.encode('utf8')) #Gửi thông tin cho server
+    except:
+        ThongbaoServer("Server đã ngắt kết nối! Vui lòng thử lại sau!")
 
 def ChoosoToSignUp(LoginButton, SignUpButton):
-    LoginButton.destroy() #xóa bỏ lựa chọn Login
-    SignUpButton.destroy() #xóa bỏ lựa chọn SignUp
-    SignUpForm() #Tạo các ô điền SignUp
-    s.sendall('0'.encode('utf8')) #Gửi thông tin cho server
+    try:
+        LoginButton.destroy() #xóa bỏ lựa chọn Login
+        SignUpButton.destroy() #xóa bỏ lựa chọn SignUp
+        SignUpForm() #Tạo các ô điền SignUp
+        s.sendall('0'.encode('utf8')) #Gửi thông tin cho server
+    except:
+        ThongbaoServer("Server đã ngắt kết nối! Vui lòng thử lại sau!")
 
 def ChooseForm(): #Tạo ra lựa chọn cho người dùng sau khi nhập host và port
     LoginButton = tk.Button(root, text="LogIn", height=3, width=10, command=lambda: ChoosoToLogin(LoginButton,SignUpButton))
@@ -188,6 +226,7 @@ Click1.place(relx=0.4, rely=0.6)
 try: s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 except socket.error as err:
     Thongbao('Không kết nối được, vui lòng thử lại sau!')
+    root.destroy()
 
 #Các ô thông tin để đăng nhập hoặc đăng ký
 UsernameLabel = tk.Label(root, text="Username")
@@ -198,5 +237,6 @@ Click2 = tk.Button(root, text="LogIn", command=lambda: Login())
 Click3 = tk.Button(root, text="SignUP", command=lambda: SignUp())
 
 ExitButton = tk.Button(root, text="Thoát", height=3, width=10, command = lambda: Exit())
+root.protocol("WM_DELETE_WINDOW", exit)
 root.geometry("600x400")
 root.mainloop()
