@@ -214,18 +214,21 @@ def threadClient():
 
 
 def data():
-    apiKey = getAPIKey()
+    try:
+        apiKey = getAPIKey()
 
-    url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
+        url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
 
-    payload={}
-    headers = {}
+        payload={}
+        headers = {}
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-    json_object = json.loads(response.text)
-    print('Da update du lieu')
-    with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump(json_object, f, ensure_ascii=False, indent=4)
+        response = requests.request("GET", url, headers=headers, data=payload)
+        json_object = json.loads(response.text)
+        print('Da update du lieu')
+        with open('data.json', 'w', encoding='utf-8') as f:
+            json.dump(json_object, f, ensure_ascii=False, indent=4)
+    except:
+        print('Không lấy được dữ liệu')
 
 def getAPIKey():
     try:
@@ -244,7 +247,7 @@ def getAPIKey():
 
 def updateData():
     data()
-    schedule.every(60).seconds.do(data)
+    schedule.every(30).minutes.do(data)
     while True:
          schedule.run_pending()
          time.sleep(0)
@@ -253,6 +256,7 @@ def exportCurrency():
     with open('currency.json',encoding="utf-16-le") as f:
         json_data = json.load(f)
         print(json.dumps(json_data, indent = 3))
+
 def Shutdown():
     OfflineALL()
     s.close()
@@ -327,6 +331,7 @@ try:
     s.listen(5)
     threading.Thread(target=threadClient).start()
     threading.Thread(target=threadServer).start()
+    threading.Thread(target=updateData).start()
     ExitButton = tk.Button(root, text="Shutdown Server", height=3, width=15, command=lambda: Shutdown())
     ExitButton.place(relx=0.5, rely=0.9, anchor="center")
 except socket.error as err:
