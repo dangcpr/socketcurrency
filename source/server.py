@@ -111,15 +111,17 @@ def runServer(conn, addr):
                     break
                 if(str_data != 'x'):
                     print(str_data)
-                    if(str_data == 'search'):
-                        conn.sendall('1'.encode('utf8'))
-                        x = conn.recv(1024).decode('utf8')
-                        currencyUnit = findData(x,'data.json')
-                        check = currencyUnit.idxCurrency()
-                        if (check == '-1'): conn.sendall('-1'.encode('utf8'))
-                        else: exportData(conn, currencyUnit)
-                    else:
+                    currencyUnit = findData(str_data, 'data.json')
+                    check = currencyUnit.idxCurrency()
+                    if (check == '-1'):
                         conn.sendall('-1'.encode('utf8'))
+                    else:
+                        conn.sendall('1'.encode('utf8'))
+                        conn.recv(1024)
+                        exportData(conn, currencyUnit)
+                        print(currencyUnit.buy_cash)
+                        print(currencyUnit.buy_transfer)
+                        print(currencyUnit.sell)
                 else:
                     break
             closeClient(conn, addr)
@@ -168,12 +170,12 @@ def getAPIKey():
         print('Không lấy được dữ liệu')
 
 def updateData():
-    data()
-    schedule.every(60).seconds.do(data)
-    while True:
-        schedule.run_pending()
-        time.sleep(0)
-
+    # data()
+    # schedule.every(60).seconds.do(data)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(0)
+    pass
 
 def exportCurrency():
     with open('currency.json',encoding="utf-16-le") as f:
@@ -219,14 +221,17 @@ def exportData(conn, currencyUnit):
     buy_cash = currencyUnit.buy_cash()
     conn.sendall(str(buy_cash).encode('utf8'))
     k = conn.recv(1024).decode('utf8')
+    print(buy_cash)
     print(k)
     buy_transfer = currencyUnit.buy_transfer()
     conn.sendall(str(buy_transfer).encode('utf8'))
     k = conn.recv(1024).decode('utf8')
+    print(buy_transfer)
     print(k)
     sell = currencyUnit.sell()
     conn.sendall(str(sell).encode('utf8'))
     k = conn.recv(1024).decode('utf8')
+    print(sell)
     print(k)
 
 # def exportData():
