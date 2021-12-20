@@ -243,12 +243,11 @@ def getAPIKey():
         print('Không lấy được dữ liệu')
 
 def updateData():
-    # data()
-    # schedule.every(60).seconds.do(data)
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(0)
-    pass
+    data()
+    schedule.every(60).seconds.do(data)
+    while True:
+         schedule.run_pending()
+         time.sleep(0)
 
 def exportCurrency():
     with open('currency.json',encoding="utf-16-le") as f:
