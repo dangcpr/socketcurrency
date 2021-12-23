@@ -10,9 +10,11 @@ import threading
 import fnmatch
 
 
-connectAddress = []
-# host = '127.0.0.1'
-# port = 65432
+#ClientLogoutServer263
+#ClientExitServer555
+connectAddress = [] #lưu các conn
+AddressOnly = [] #lưu các addr
+
 
 root = tk.Tk()
 def Thongbao(str): #thông báo xuất hiện và ấn ok để tắt
@@ -23,6 +25,29 @@ def Thongbao(str): #thông báo xuất hiện và ấn ok để tắt
     Noti.after(2000,lambda :Noti.destroy())
     Noti.geometry('300x50')
     #Noti.mainloop()
+
+def Confirm_Shutdown(): #bước đảm bảo trước khi shutdown server
+    Noti = tk.Toplevel(root)
+    Noti.title("Thông báo")
+    tk.Label(Noti, text="Bạn muốn shutdown server?", wraplength=250).place(relx=0.5, rely=0.3, anchor='center')
+    tk.Button(Noti, text="Shutdown", command=lambda: Shutdown(), width=10).place(relx=0.2, rely=0.7,
+                                                                                     anchor='center')
+    tk.Button(Noti, text="Cancel", command=lambda: Noti.destroy(), width=10).place(relx=0.8, rely=0.7,
+                                                                                      anchor='center')
+    Noti.after(3000, lambda: Noti.destroy())
+    Noti.geometry('300x100')
+
+def Confirm_Disconnect(conn, addr): #bước đảm bảo trước khi shutdown server
+    Noti = tk.Toplevel(root)
+    Noti.title("Thông báo")
+    strr = "Bạn muốn ngắt kết nối với " + str(addr) + " ?"
+    tk.Label(Noti, text=strr, wraplength=250).place(relx=0.5, rely=0.3, anchor='center')
+    tk.Button(Noti, text="Ngắt", command=lambda: closeClient(conn, addr), width=10).place(relx=0.2, rely=0.7,
+                                                                                     anchor='center')
+    tk.Button(Noti, text="Cancel", command=lambda: Noti.destroy(), width=10).place(relx=0.8, rely=0.7,
+                                                                                      anchor='center')
+    Noti.after(3000, lambda: Noti.destroy())
+    Noti.geometry('300x100')
 
 def CheckIfExist_SignUp(Username, Password): #khi đăng ký chỉ check phần username
     with open ('Account.json', 'r') as f:
@@ -105,8 +130,8 @@ def SignUp_server(s):
                 return Username,Password
             check = s.recv(1).decode('utf8')
             if check == '0':
-                Login_server(s)
-                return Username,Password
+                return Login_server(s)
+                #return Username,Password
         else:
             return Username,Password
 
@@ -138,21 +163,25 @@ def Login_server(s):
 
             check = s.recv(1).decode('utf8')
             if check == '0':
-                SignUp_server(s)
-                return Username,Password
+                return SignUp_server(s)
+                #return Username,Password
         else:
             return Username,Password
 
-def closeClient(conn, addr, Username, Password):
+def closeClient(conn, addr):
     print(addr, ' da ngat ket noi')
-    if len(Username) != 0 and len(Password) != 0:
-        Offline(Username, Password)
     disAddr = str(addr)
     index = connectAddress.index(conn)
     connectAddress.pop(index)
-    dis = ''.join(['Client ', disAddr, ' da thoat'])
-    for i in connectAddress:
-        i.send(dis.encode('utf8'))
+    index2 = AddressOnly.index(addr)
+    AddressOnly.pop(index2)
+    global Changed
+    Changed = True
+    conn.shutdown(socket.SHUT_RDWR)
+    conn.close()
+    #dis = ''.join(['Client ', disAddr, ' da thoat'])
+    #for i in connectAddress:
+        #i.send(dis.encode('utf8'))
 
 def runServer(conn, addr):
     try:
@@ -161,62 +190,47 @@ def runServer(conn, addr):
             strr=str(addr) + ' đã kết nối!'
             Thongbao(strr)
             connectAddress.append(conn)
+            AddressOnly.append(addr)
+            global Changed
+            Changed = True
             print(connectAddress)
-            DNDK = conn.recv(1).decode('utf8')
-            if DNDK == '1':
-                Username, Password = Login_server(conn)
-            elif DNDK == '0':
-                Username, Password = SignUp_server(conn)
-            else:
-                closeClient(conn, addr, '', '')
-                return
-
-            str_data = None
-            while str_data != 'x':
-                data = conn.recv(1024)
-                str_data = data.decode('utf8')
-                if not str_data:
+            while True:
+                DNDK = conn.recv(1024).decode('utf8')
+                if DNDK == '1':
+                    Username, Password = Login_server(conn)
+                elif DNDK == '0':
+                    Username, Password = SignUp_server(conn)
+                else: #Người dùng chọn thoát, server nhận tín hiệu ClientExitServer555
+                    closeClient(conn, addr)
+                    return
+                if Username == 'ClientExitServer555': #Xảy ra khi người dùng ấn Login/SignUp sau đó ấn thoát, break và ngắt kết nối
                     break
-
-                if str_data == "LogOut":
-                    if len(Username) != 0 and len(Password) != 0:
-                        Offline(Username, Password)
-
-                    tmpStr = conn.recv(1).decode('utf8')
-                    print(tmpStr)
-
-                    if tmpStr == '1':
-                        Username, Password = Login_server(conn)
-                    elif tmpStr == '0':
-                        Username, Password = SignUp_server(conn)
+                str_data = None
+                while str_data != 'ClientLogoutServer263': #khi server nhận tín hiệu ClientLogoutServer263 sẽ đăng xuất
+                    data = conn.recv(1024)
+                    str_data = data.decode('utf8')
+                    if (not str_data) or (str_data == 'ClientExitServer555'):
+                        break
+                    if(str_data != 'ClientLogoutServer263'):
+                        print(str_data)
+                        currencyUnit = findData(str_data, 'data.json')
+                        check = currencyUnit.idxCurrency()
+                        if (check == '-1'):
+                            conn.sendall('-1'.encode('utf8'))
+                        else:
+                            conn.sendall('1'.encode('utf8'))
+                            conn.recv(1024)
+                            exportData(conn, currencyUnit)
+                            print(currencyUnit.buy_cash)
+                            print(currencyUnit.buy_transfer)
+                            print(currencyUnit.sell)
                     else:
-                        closeClient(conn, addr, '', '')
-                        return
-
-                elif(str_data != 'x'):
-                    print(str_data)
-                    currencyUnit = findData(str_data, 'data.json')
-                    check = currencyUnit.idxCurrency()
-                    if (check == '-1'):
-                        conn.sendall('-1'.encode('utf8'))
-                    else:
-                        conn.sendall('1'.encode('utf8'))
-                        conn.recv(1024)
-                        exportData(conn, currencyUnit)
-                        print(currencyUnit.buy_cash)
-                        print(currencyUnit.buy_transfer)
-                        print(currencyUnit.sell)
-                else:
-                    break
-            closeClient(conn, addr, Username, Password)
+                        break
+                Offline(Username, Password)
+            closeClient(conn, addr)
     except socket.error as err:
         print("Lỗi kết nối: ", err)
         sys.exit(1)
-
-def threadServer(): #Update thông tin trên GUI.
-    Thongbao('Đã tạo socket')
-    ClientFrame = tk.Frame(root)
-    ClientFrame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.8, relheight=0.7)
 
 def threadClient():
     while True:
@@ -229,6 +243,12 @@ def threadClient():
             print('Error')
             return
 
+def Shutdown():
+    OfflineALL()
+    s.close()
+    root.destroy()
+    global Running
+    Running = False
 
 def data():
     try:
@@ -265,21 +285,14 @@ def getAPIKey():
 def updateData():
     data()
     schedule.every(30).minutes.do(data)
-    while True:
-         schedule.run_pending()
-         time.sleep(0)
+    while Running == True:
+        schedule.run_pending()
+        time.sleep(0)
 
 def exportCurrency():
     with open('currency.json',encoding="utf-16-le") as f:
         json_data = json.load(f)
         print(json.dumps(json_data, indent = 3))
-
-def Shutdown():
-    OfflineALL()
-    s.close()
-    root.destroy()
-
-
 
 class findData:
     def __init__(self,currencyUnit,fileName):
@@ -333,6 +346,24 @@ def exportData(conn, currencyUnit):
     print(sell)
     print(k)
 
+def clear_frame():
+   for widgets in ClientFrame.winfo_children():
+      widgets.destroy()
+
+def UpdateFrame():
+    clear_frame()
+    for addr in AddressOnly:
+        index = AddressOnly.index(addr)
+        tk.Label(ClientFrame, text = addr, width= 50, justify='center',bg='green').grid(row = index, column=0)
+        tk.Button(ClientFrame, text = 'Ngắt kết nối', command = lambda: Confirm_Disconnect(connectAddress[index], AddressOnly[index])).grid(row = index, column= 1)
+
+def CheckUpdateFrame():
+    global Changed
+    while Running == True:
+        if Changed == True:
+            Changed = False
+            UpdateFrame()
+
 # def exportData():
 
 
@@ -347,13 +378,20 @@ try:
     s.bind((address, port))
     s.listen(5)
     threading.Thread(target=threadClient).start()
-    threading.Thread(target=threadServer).start()
-    threading.Thread(target=updateData).start()
-    ExitButton = tk.Button(root, text="Shutdown Server", height=3, width=15, command=lambda: Shutdown())
+    #threading.Thread(target=threadServer).start()
+    Thongbao('Đã tạo socket')
+    ClientFrame = tk.Frame(root)
+    ClientFrame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.8, relheight=0.7)
+    Changed = False #kiểm tra xem list connectAddress có gì thay đổi không
+    Running = True #Kiểm tra xem GUI có còn không, khi GUI bị tắt thì Running = False
+    threading.Thread(target=CheckUpdateFrame).start()
+    UpdateThread = threading.Thread(target=updateData)
+    UpdateThread.start()
+    ExitButton = tk.Button(root, text="Shutdown Server", height=3, width=15, command=lambda: Confirm_Shutdown())
     ExitButton.place(relx=0.5, rely=0.9, anchor="center")
 except socket.error as err:
     Thongbao('Lỗi không thể tạo socket, vui lòng thử lại!', err)
     root.destroy()
-root.protocol("WM_DELETE_WINDOW", Shutdown)
+root.protocol("WM_DELETE_WINDOW", Confirm_Shutdown)
 root.geometry("600x400")
 root.mainloop()
