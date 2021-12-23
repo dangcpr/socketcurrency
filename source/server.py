@@ -9,12 +9,12 @@ import os
 import threading
 import fnmatch
 
+
 #ClientLogoutServer263
 #ClientExitServer555
 connectAddress = [] #lưu các conn
 AddressOnly = [] #lưu các addr
-# host = '127.0.0.1'
-# port = 65432
+
 
 root = tk.Tk()
 def Thongbao(str): #thông báo xuất hiện và ấn ok để tắt
@@ -148,6 +148,7 @@ def Login_server(s):
             checkOnline = CheckIfOnline(Username, Password)
             if checkAcc == '0':
                 s.sendall('0'.encode('utf8'))
+
                 #noti = s.recv(1024).decode('utf8')
                 #print(noti)
             else:
@@ -362,6 +363,9 @@ def CheckUpdateFrame():
         if Changed == True:
             Changed = False
             UpdateFrame()
+
+# def exportData():
+
 
 tk.Label(root, text=" TỶ GIÁ TIỀN TỆ VIỆT NAM(Server)", font=("Arial", 25)).place(relx=0.5, rely=0.1, anchor='center')
 port = 65432

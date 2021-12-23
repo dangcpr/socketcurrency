@@ -19,19 +19,16 @@ port = None
 Username = None
 Password = None
 
-options = ["AUD", "CAD", "CHF", "CNY", "DKK", "EUR", "GBP", "HKD", "JPY", "KRW", "LAK", "MYR", "NOK", "NZD", "RUB",
-           "SEK", "SGD", "THB", "TWD", "USD"]
-options1 = ["Đô la Úc - AUD", "Đô la Canada - CAD", "Franc Thụy Sĩ - CHF", "Nhân dân tệ - CNY", "Krone Đan Mạch - DKK",
-            "Euro - EUR",
-            "Bảng Anh - GBP", "Đô la Hồng Kông - HKD", "Yên Nhật - JPY", "Won Hàn Quốc - KRW", "Kip Lào - LAK",
-            "Ringgit Malaysia - MYR",
-            "Krone Na Uy - NOK", "Đô la New Zealand - NZD", "Rúp Nga - RUB", "Krona Thụy Điển - SEK",
-            "Đô la Singapore - SGD",
-            "Baht Thái Lan - THB", "Tân Đài tệ - TWD", "Đô la Mỹ - USD"]
 
+options = ["AUD","CAD","CHF","CNY","DKK","EUR","GBP","HKD","JPY","KRW","LAK","MYR","NOK","NZD","RUB","SEK","SGD","THB","TWD","USD"]
+options1 = ["Đô la Úc - AUD","Đô la Canada - CAD","Franc Thụy Sĩ - CHF","Nhân dân tệ - CNY","Krone Đan Mạch - DKK","Euro - EUR",
+            "Bảng Anh - GBP","Đô la Hồng Kông - HKD","Yên Nhật - JPY","Won Hàn Quốc - KRW","Kip Lào - LAK","Ringgit Malaysia - MYR",
+            "Krone Na Uy - NOK","Đô la New Zealand - NZD","Rúp Nga - RUB","Krona Thụy Điển - SEK","Đô la Singapore - SGD",
+            "Baht Thái Lan - THB","Tân Đài tệ - TWD","Đô la Mỹ - USD"]
 
-def Thongbao(str):  # thông báo xuất hiện và ấn ok để tắt
-    Noti = tk.Toplevel(root)
+def Thongbao(str): #thông báo xuất hiện và ấn ok để tắt
+    Noti=tk.Toplevel(root)
+
     Noti.title("Thông báo")
     tk.Label(Noti, text=str).pack()
     tk.Button(Noti, text="OK", command=lambda: Noti.destroy(), width=10).place(relx=0.5, rely=0.7, anchor='center')
@@ -128,7 +125,6 @@ def Hide_LoginForm():  # xóa các ô nhập thông tin login
     Click2.place_forget()
     # root.place_foget()
 
-
 def Hide_Get_IP_port():  # Xóa các ô nhập host và port
     HostLabel.place_forget()
     HostEntry.place_forget()
@@ -170,7 +166,9 @@ def SignUp():
             s.sendall(Username.encode('utf8'))
             s.sendall(Password.encode('utf8'))
             check = s.recv(1).decode('utf8')
+            
             if check != '0':
+                s.sendall('Đăng nhập thất bại'.encode('utf8'))
                 Thongbao_SignUp('Tài khoản đã tồn tại! Vui lòng thử lại')
             else:
                 Thongbao('Đăng ký thành công')
@@ -203,7 +201,6 @@ def Login():
     except:
         ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
 
-
 def searchData():
     try:
         while True:
@@ -213,6 +210,7 @@ def searchData():
             if (t == '1'):
                 k = input('Nhập đơn vị: ')
                 s.sendall(k.encode('utf8'))
+
                 if (t == '-1'):
                     k = input('Nhập đơn vị: ')
                 else:
@@ -228,6 +226,7 @@ def searchData():
     except:
         ThongbaoServer("Không lấy được dữ liệu")
         s.close()
+
 
 
 def Get_IP_port(HostEntry, PortEntry):
@@ -286,6 +285,7 @@ def ChooseForm():  # Tạo ra lựa chọn cho người dùng sau khi nhập hos
     ExitButton.place(relx=0.5, rely=0.8, anchor="center")
 
 
+
 def runClient(atm, cmb, frame, textBox):
     try:
         if atm == '':
@@ -299,7 +299,7 @@ def runClient(atm, cmb, frame, textBox):
         s.sendall(cmb.encode('utf8'))
         check = s.recv(1024).decode('utf8')
         if (check == '-1'):
-            # s.sendall('Da nhan check'.encode('utf8'))
+            #s.sendall('Da nhan check'.encode('utf8'))
             Thongbao("Đơn vị tiền tệ không hợp lệ")
             return
         else:
@@ -323,12 +323,11 @@ def runClient(atm, cmb, frame, textBox):
 
 def LogOut(Frame):
     s.sendall('ClientLogoutServer263'.encode('utf8'))
-    #s.close()
     root.geometry("600x400")
-    Frame.place_forget()
+    Frame.destroy()
     ChooseForm()
-    # pass
-
+    #s.sendall('Client xong'.encode('utf8'))
+    #pass
 
 def mainPage():
     root.geometry("1000x600")
