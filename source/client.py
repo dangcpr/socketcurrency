@@ -85,8 +85,11 @@ def Thongbao_SignUp(str):  # Thông báo có 2 lựa chọn, chỉ xuất hiện
 
 
 def TryAgain(Noti):
-    s.sendall('1'.encode('utf8'))
-    Noti.destroy()
+    try:
+        s.sendall('1'.encode('utf8'))
+        Noti.destroy()
+    except:
+        ThongbaoServer("Không kết nối được với server")
 
 
 def GotoSignUp(Noti):
@@ -284,37 +287,39 @@ def ChooseForm():  # Tạo ra lựa chọn cho người dùng sau khi nhập hos
 
 
 def runClient(atm, cmb, frame, textBox):
-    if atm == '':
-        atm = "1"
-    if cmb == '':
-        cmb = 'USD'
-    for i in range(len(options1)):
-        if (cmb == options1[i]):
-            cmb = options[i]
+    try:
+        if atm == '':
+            atm = "1"
+        if cmb == '':
+            cmb = 'USD'
+        for i in range(len(options1)):
+            if (cmb == options1[i]):
+                cmb = options[i]
 
-    s.sendall(cmb.encode('utf8'))
-    check = s.recv(1024).decode('utf8')
-    if (check == '-1'):
-        # s.sendall('Da nhan check'.encode('utf8'))
-        Thongbao("Đơn vị tiền tệ không hợp lệ")
-        return
-    else:
-        s.sendall('Da nhan check'.encode('utf8'))
-        buy_cash = s.recv(1024).decode('utf8')
-        s.sendall('Da nhan buy cash'.encode('utf8'))
-        buy_transfer = s.recv(1024).decode('utf8')
-        s.sendall('Da nhan buy transfer'.encode('utf8'))
-        sell = s.recv(1024).decode('utf8')
-        s.sendall('Da nhan sell'.encode('utf8'))
-        buy_cash1 = float(atm) * float(buy_cash)
-        buy_transfer1 = float(atm) * float(buy_transfer)
-        sell1 = float(atm) * float(sell)
-        print(sell1)
-        textBox.delete(1.0, END)
-        textBox.insert(0.0, atm + " " + cmb + "\nTiền mặt          : " + str(buy_cash1) + " VND\nChuyển khoản: " + str(
-            buy_transfer1)
-                       + " VND\nBán                 : " + str(sell1) + " VND")
-
+        s.sendall(cmb.encode('utf8'))
+        check = s.recv(1024).decode('utf8')
+        if (check == '-1'):
+            # s.sendall('Da nhan check'.encode('utf8'))
+            Thongbao("Đơn vị tiền tệ không hợp lệ")
+            return
+        else:
+            s.sendall('Da nhan check'.encode('utf8'))
+            buy_cash = s.recv(1024).decode('utf8')
+            s.sendall('Da nhan buy cash'.encode('utf8'))
+            buy_transfer = s.recv(1024).decode('utf8')
+            s.sendall('Da nhan buy transfer'.encode('utf8'))
+            sell = s.recv(1024).decode('utf8')
+            s.sendall('Da nhan sell'.encode('utf8'))
+            buy_cash1 = float(atm) * float(buy_cash)
+            buy_transfer1 = float(atm) * float(buy_transfer)
+            sell1 = float(atm) * float(sell)
+            print(sell1)
+            textBox.delete(1.0, END)
+            textBox.insert(0.0, atm + " " + cmb + "\nTiền mặt          : " + str(buy_cash1) + " VND\nChuyển khoản: " + str(
+                buy_transfer1)
+                        + " VND\nBán                 : " + str(sell1) + " VND")
+    except:
+        ThongbaoServer("Không kết nối được với server")
 
 def LogOut(Frame):
     s.sendall('ClientLogoutServer263'.encode('utf8'))

@@ -208,7 +208,7 @@ def runServer(conn, addr):
                 while str_data != 'ClientLogoutServer263': #khi server nhận tín hiệu ClientLogoutServer263 sẽ đăng xuất
                     data = conn.recv(1024)
                     str_data = data.decode('utf8')
-                    if not str_data:
+                    if (not str_data) or (str_data == 'ClientExitServer555'):
                         break
                     if(str_data != 'ClientLogoutServer263'):
                         print(str_data)
