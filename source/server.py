@@ -170,13 +170,30 @@ def runServer(conn, addr):
             else:
                 closeClient(conn, addr, '', '')
                 return
+
             str_data = None
             while str_data != 'x':
                 data = conn.recv(1024)
                 str_data = data.decode('utf8')
                 if not str_data:
                     break
-                if(str_data != 'x'):
+
+                if str_data == "LogOut":
+                    if len(Username) != 0 and len(Password) != 0:
+                        Offline(Username, Password)
+
+                    tmpStr = conn.recv(1).decode('utf8')
+                    print(tmpStr)
+
+                    if tmpStr == '1':
+                        Username, Password = Login_server(conn)
+                    elif tmpStr == '0':
+                        Username, Password = SignUp_server(conn)
+                    else:
+                        closeClient(conn, addr, '', '')
+                        return
+
+                elif(str_data != 'x'):
                     print(str_data)
                     currencyUnit = findData(str_data, 'data.json')
                     check = currencyUnit.idxCurrency()
