@@ -8,11 +8,12 @@ import sys
 import os
 import threading
 import fnmatch
-
+import functools as ft
 #ClientLogoutServer263
 #ClientExitServer555
 connectAddress = [] #lưu các conn
 AddressOnly = [] #lưu các addr
+Address_Account = [] #lưu địa chỉ ở addr đang login vào account nào
 # host = '127.0.0.1'
 # port = 65432
 
@@ -30,7 +31,7 @@ def Confirm_Shutdown(): #bước đảm bảo trước khi shutdown server
     Noti = tk.Toplevel(root)
     Noti.title("Thông báo")
     tk.Label(Noti, text="Bạn muốn shutdown server?", wraplength=250).place(relx=0.5, rely=0.3, anchor='center')
-    tk.Button(Noti, text="Shutdown", command=lambda: Shutdown(), width=10).place(relx=0.2, rely=0.7,
+    tk.Button(Noti, text="Shutdown", command=lambda: [Noti.destroy(),Shutdown()], width=10).place(relx=0.2, rely=0.7,
                                                                                      anchor='center')
     tk.Button(Noti, text="Cancel", command=lambda: Noti.destroy(), width=10).place(relx=0.8, rely=0.7,
                                                                                       anchor='center')
@@ -42,7 +43,7 @@ def Confirm_Disconnect(conn, addr): #bước đảm bảo trước khi shutdown 
     Noti.title("Thông báo")
     strr = "Bạn muốn ngắt kết nối với " + str(addr) + " ?"
     tk.Label(Noti, text=strr, wraplength=250).place(relx=0.5, rely=0.3, anchor='center')
-    tk.Button(Noti, text="Ngắt", command=lambda: closeClient(conn, addr), width=10).place(relx=0.2, rely=0.7,
+    tk.Button(Noti, text="Ngắt", command=lambda: [Noti.destroy(), closeClient(conn, addr)], width=10).place(relx=0.2, rely=0.7,
                                                                                      anchor='center')
     tk.Button(Noti, text="Cancel", command=lambda: Noti.destroy(), width=10).place(relx=0.8, rely=0.7,
                                                                                       anchor='center')
@@ -104,11 +105,15 @@ def OfflineALL(): #xóa tất cả account đang online, dùng khi shutdowm serv
         f.seek(0)
         json.dump(Acc_list, f, indent = 4)
 
-def Offline(Username, Password): #Xóa account khỏi danh sách online
+def Offline(addr): #Xóa account khỏi danh sách online
+    idx = AddressOnly.index(addr)
+    Username = Address_Account[idx]
+    Address_Account[idx]="ZeroAccountConnect"
     with open('AccountOnline.json', 'r') as f:
         Acc_list = json.load(f)
+        index = Acc_list['Account'].index(Username)
         Acc_list['Account'].remove(Username)
-        Acc_list['Pass'].remove(Password)
+        Acc_list['Pass'].pop(index)
     with open('AccountOnline.json', 'w') as f:
         f.seek(0)
         json.dump(Acc_list, f, indent = 4)
@@ -171,9 +176,11 @@ def closeClient(conn, addr):
     print(addr, ' da ngat ket noi')
     disAddr = str(addr)
     index = connectAddress.index(conn)
+    if(Address_Account[index] != "ZeroAccountConnect"): #addr dang dang nhap vao mot account nao do!
+        Offline(AddressOnly[index])
     connectAddress.pop(index)
-    index2 = AddressOnly.index(addr)
-    AddressOnly.pop(index2)
+    #index2 = AddressOnly.index(addr)
+    AddressOnly.pop(index)
     global Changed
     Changed = True
     conn.shutdown(socket.SHUT_RDWR)
@@ -189,7 +196,10 @@ def runServer(conn, addr):
             strr=str(addr) + ' đã kết nối!'
             Thongbao(strr)
             connectAddress.append(conn)
+            index=connectAddress.index(conn)
             AddressOnly.append(addr)
+            Address_Account.append("ZeroAccountConnect")
+            #AddressOnly[index]=addr
             global Changed
             Changed = True
             print(connectAddress)
@@ -204,11 +214,12 @@ def runServer(conn, addr):
                     return
                 if Username == 'ClientExitServer555': #Xảy ra khi người dùng ấn Login/SignUp sau đó ấn thoát, break và ngắt kết nối
                     break
+                Address_Account[index] = Username
                 str_data = None
                 while str_data != 'ClientLogoutServer263': #khi server nhận tín hiệu ClientLogoutServer263 sẽ đăng xuất
                     data = conn.recv(1024)
                     str_data = data.decode('utf8')
-                    if not str_data:
+                    if (not str_data) or (str_data == 'ClientExitServer555'):
                         break
                     if(str_data != 'ClientLogoutServer263'):
                         print(str_data)
@@ -225,8 +236,9 @@ def runServer(conn, addr):
                             print(currencyUnit.sell)
                     else:
                         break
-                Offline(Username, Password)
-            closeClient(conn, addr)
+                Offline(addr)
+                conn.sendall('ClientLogoutServer263'.encode('utf8'))
+            #closeClient(conn, addr)
     except socket.error as err:
         print("Lỗi kết nối: ", err)
         sys.exit(1)
@@ -351,10 +363,12 @@ def clear_frame():
 
 def UpdateFrame():
     clear_frame()
+    index=0
     for addr in AddressOnly:
-        index = AddressOnly.index(addr)
+        #index = AddressOnly.index(addr)
         tk.Label(ClientFrame, text = addr, width= 50, justify='center',bg='green').grid(row = index, column=0)
-        tk.Button(ClientFrame, text = 'Ngắt kết nối', command = lambda: Confirm_Disconnect(connectAddress[index], AddressOnly[index])).grid(row = index, column= 1)
+        tk.Button(ClientFrame, text = 'Ngắt kết nối', command = ft.partial(Confirm_Disconnect, connectAddress[index], AddressOnly[index])).grid(row = index, column= 1)
+        index = index + 1
 
 def CheckUpdateFrame():
     global Changed
