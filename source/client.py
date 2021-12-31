@@ -1,3 +1,4 @@
+
 import requests
 import json
 import schedule
@@ -85,11 +86,8 @@ def Thongbao_SignUp(str):  # Thông báo có 2 lựa chọn, chỉ xuất hiện
 
 
 def TryAgain(Noti):
-    try:
-        s.sendall('1'.encode('utf8'))
-        Noti.destroy()
-    except:
-        ThongbaoServer("Không kết nối được với server")
+    s.sendall('1'.encode('utf8'))
+    Noti.destroy()
 
 
 def GotoSignUp(Noti):
@@ -113,6 +111,7 @@ def GotoLogin(Noti):
 
 
 def Hide_SignUpForm():  # xóa các ô nhập thông tin SignUp
+    UPwarning.place_forget()
     UsernameLabel.place_forget()
     UsernameEntry.place_forget()
     PasswordLabel.place_forget()
@@ -121,6 +120,7 @@ def Hide_SignUpForm():  # xóa các ô nhập thông tin SignUp
 
 
 def Hide_LoginForm():  # xóa các ô nhập thông tin login
+    UPwarning.place_forget()
     UsernameLabel.place_forget()
     UsernameEntry.place_forget()
     PasswordLabel.place_forget()
@@ -166,7 +166,7 @@ def SignUp():
     Username = UsernameEntry.get()
     Password = PasswordEntry.get()
     try:
-        if len(Username) != 0 and len(Password) != 0:
+        if len(Username) != 0 and len(Username) <= 16 and len(Password) != 0 and len(Password) <= 16:
             s.sendall(Username.encode('utf8'))
             s.sendall(Password.encode('utf8'))
             check = s.recv(1).decode('utf8')
@@ -186,7 +186,7 @@ def Login():
     Username = UsernameEntry.get()
     Password = PasswordEntry.get()
     try:
-        if len(Username) != 0 and len(Password) != 0:
+        if len(Username) != 0 and len(Username) <= 16 and len(Password) != 0 and len(Password) <= 16:
             s.sendall(Username.encode('utf8'))
             s.sendall(Password.encode('utf8'))
             check = s.recv(1).decode('utf8')
@@ -249,6 +249,7 @@ def SignUpForm():  # Tạo các ô điền Login
 
 
 def LoginForm():  # Tạo các ô điền Login
+    UPwarning.place(relx=0.5, rely=0.4, anchor='center')
     UsernameLabel.place(relx=0.3, rely=0.5)
     UsernameEntry.place(relx=0.4, rely=0.5)
     PasswordLabel.place(relx=0.3, rely=0.55)
@@ -319,15 +320,21 @@ def runClient(atm, cmb, frame, textBox):
                 buy_transfer1)
                         + " VND\nBán                 : " + str(sell1) + " VND")
     except:
-        ThongbaoServer("Không kết nối được với server")
+        ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
+        s.close()
 
 def LogOut(Frame):
-    s.sendall('ClientLogoutServer263'.encode('utf8'))
-    #s.close()
-    root.geometry("600x400")
-    Frame.place_forget()
-    ChooseForm()
-    # pass
+    try:
+        s.sendall('ClientLogoutServer263'.encode('utf8'))
+        t = s.recv(1024).decode('utf8')
+        #s.close()
+        root.geometry("600x400")
+        Frame.place_forget()
+        ChooseForm()
+        # pass
+    except:
+        ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
+        s.close()
 
 
 def mainPage():
@@ -407,6 +414,7 @@ except socket.error as err:
     root.destroy()
 
 # Các ô thông tin để đăng nhập hoặc đăng ký
+UPwarning = tk.Label(root, text="Username và Password từ 1-16 ký tự!", fg="red")
 UsernameLabel = tk.Label(root, text="Username")
 UsernameEntry = tk.Entry(root)
 PasswordLabel = tk.Label(root, text="Password")
