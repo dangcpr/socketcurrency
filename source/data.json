@@ -1,5 +1,1957 @@
 {
-    "results": [
+    "2021-12-15": [
+        {
+            "buy_cash": 15944.39,
+            "buy_transfer": 16105.44,
+            "currency": "AUD",
+            "sell": 16624.82
+        },
+        {
+            "buy_cash": 17460.69,
+            "buy_transfer": 17637.06,
+            "currency": "CAD",
+            "sell": 18205.84
+        },
+        {
+            "buy_cash": 24276.05,
+            "buy_transfer": 24521.26,
+            "currency": "CHF",
+            "sell": 25312.05
+        },
+        {
+            "buy_cash": 3542.57,
+            "buy_transfer": 3578.35,
+            "currency": "CNY",
+            "sell": 3694.31
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3422.25,
+            "currency": "DKK",
+            "sell": 3553.87
+        },
+        {
+            "buy_cash": 25258.92,
+            "buy_transfer": 25514.06,
+            "currency": "EUR",
+            "sell": 26674.18
+        },
+        {
+            "buy_cash": 29681.81,
+            "buy_transfer": 29981.63,
+            "currency": "GBP",
+            "sell": 30948.5
+        },
+        {
+            "buy_cash": 2875.54,
+            "buy_transfer": 2904.58,
+            "currency": "HKD",
+            "sell": 2998.25
+        },
+        {
+            "buy_cash": 196.27,
+            "buy_transfer": 198.25,
+            "currency": "JPY",
+            "sell": 207.76
+        },
+        {
+            "buy_cash": 16.77,
+            "buy_transfer": 18.64,
+            "currency": "KRW",
+            "sell": 20.44
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5382.24,
+            "currency": "MYR",
+            "sell": 5500.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2475.25,
+            "currency": "NOK",
+            "sell": 2580.76
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.7,
+            "currency": "RUB",
+            "sell": 346.51
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2465.69,
+            "currency": "SEK",
+            "sell": 2570.8
+        },
+        {
+            "buy_cash": 16379.6,
+            "buy_transfer": 16545.05,
+            "currency": "SGD",
+            "sell": 17078.61
+        },
+        {
+            "buy_cash": 609.17,
+            "buy_transfer": 676.85,
+            "currency": "THB",
+            "sell": 702.89
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22870.0,
+            "buy_transfer": 22900.0,
+            "currency": "USD",
+            "sell": 23140.0
+        }
+    ],
+    "2021-12-16": [
+        {
+            "buy_cash": 16114.27,
+            "buy_transfer": 16277.04,
+            "currency": "AUD",
+            "sell": 16801.99
+        },
+        {
+            "buy_cash": 17523.25,
+            "buy_transfer": 17700.25,
+            "currency": "CAD",
+            "sell": 18271.1
+        },
+        {
+            "buy_cash": 24304.91,
+            "buy_transfer": 24550.42,
+            "currency": "CHF",
+            "sell": 25342.18
+        },
+        {
+            "buy_cash": 3538.15,
+            "buy_transfer": 3573.89,
+            "currency": "CNY",
+            "sell": 3689.71
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3436.13,
+            "currency": "DKK",
+            "sell": 3568.3
+        },
+        {
+            "buy_cash": 25357.96,
+            "buy_transfer": 25614.11,
+            "currency": "EUR",
+            "sell": 26778.82
+        },
+        {
+            "buy_cash": 29797.18,
+            "buy_transfer": 30098.16,
+            "currency": "GBP",
+            "sell": 31068.84
+        },
+        {
+            "buy_cash": 2872.67,
+            "buy_transfer": 2901.68,
+            "currency": "HKD",
+            "sell": 2995.27
+        },
+        {
+            "buy_cash": 195.53,
+            "buy_transfer": 197.51,
+            "currency": "JPY",
+            "sell": 206.98
+        },
+        {
+            "buy_cash": 16.81,
+            "buy_transfer": 18.68,
+            "currency": "KRW",
+            "sell": 20.48
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5403.11,
+            "currency": "MYR",
+            "sell": 5521.85
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2509.46,
+            "currency": "NOK",
+            "sell": 2616.43
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 312.21,
+            "currency": "RUB",
+            "sell": 348.2
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2485.89,
+            "currency": "SEK",
+            "sell": 2591.86
+        },
+        {
+            "buy_cash": 16431.34,
+            "buy_transfer": 16597.31,
+            "currency": "SGD",
+            "sell": 17132.58
+        },
+        {
+            "buy_cash": 607.55,
+            "buy_transfer": 675.05,
+            "currency": "THB",
+            "sell": 701.02
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22850.0,
+            "buy_transfer": 22880.0,
+            "currency": "USD",
+            "sell": 23120.0
+        }
+    ],
+    "2021-12-17": [
+        {
+            "buy_cash": 16041.48,
+            "buy_transfer": 16203.52,
+            "currency": "AUD",
+            "sell": 16726.14
+        },
+        {
+            "buy_cash": 17505.07,
+            "buy_transfer": 17681.88,
+            "currency": "CAD",
+            "sell": 18252.19
+        },
+        {
+            "buy_cash": 24370.96,
+            "buy_transfer": 24617.13,
+            "currency": "CHF",
+            "sell": 25411.12
+        },
+        {
+            "buy_cash": 3528.23,
+            "buy_transfer": 3563.87,
+            "currency": "CNY",
+            "sell": 3679.37
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3435.07,
+            "currency": "DKK",
+            "sell": 3567.21
+        },
+        {
+            "buy_cash": 25354.09,
+            "buy_transfer": 25610.19,
+            "currency": "EUR",
+            "sell": 26774.81
+        },
+        {
+            "buy_cash": 29794.52,
+            "buy_transfer": 30095.48,
+            "currency": "GBP",
+            "sell": 31066.17
+        },
+        {
+            "buy_cash": 2868.0,
+            "buy_transfer": 2896.97,
+            "currency": "HKD",
+            "sell": 2990.41
+        },
+        {
+            "buy_cash": 196.03,
+            "buy_transfer": 198.01,
+            "currency": "JPY",
+            "sell": 207.51
+        },
+        {
+            "buy_cash": 16.75,
+            "buy_transfer": 18.61,
+            "currency": "KRW",
+            "sell": 20.4
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5388.58,
+            "currency": "MYR",
+            "sell": 5507.03
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2504.31,
+            "currency": "NOK",
+            "sell": 2611.07
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.95,
+            "currency": "RUB",
+            "sell": 346.8
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2488.6,
+            "currency": "SEK",
+            "sell": 2594.69
+        },
+        {
+            "buy_cash": 16405.14,
+            "buy_transfer": 16570.85,
+            "currency": "SGD",
+            "sell": 17105.32
+        },
+        {
+            "buy_cash": 608.31,
+            "buy_transfer": 675.9,
+            "currency": "THB",
+            "sell": 701.9
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22790.0,
+            "buy_transfer": 22820.0,
+            "currency": "USD",
+            "sell": 23100.0
+        }
+    ],
+    "2021-12-18": [
+        {
+            "buy_cash": 16041.48,
+            "buy_transfer": 16203.52,
+            "currency": "AUD",
+            "sell": 16726.14
+        },
+        {
+            "buy_cash": 17505.07,
+            "buy_transfer": 17681.88,
+            "currency": "CAD",
+            "sell": 18252.19
+        },
+        {
+            "buy_cash": 24370.96,
+            "buy_transfer": 24617.13,
+            "currency": "CHF",
+            "sell": 25411.12
+        },
+        {
+            "buy_cash": 3528.23,
+            "buy_transfer": 3563.87,
+            "currency": "CNY",
+            "sell": 3679.37
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3435.07,
+            "currency": "DKK",
+            "sell": 3567.21
+        },
+        {
+            "buy_cash": 25354.09,
+            "buy_transfer": 25610.19,
+            "currency": "EUR",
+            "sell": 26774.81
+        },
+        {
+            "buy_cash": 29794.52,
+            "buy_transfer": 30095.48,
+            "currency": "GBP",
+            "sell": 31066.17
+        },
+        {
+            "buy_cash": 2868.0,
+            "buy_transfer": 2896.97,
+            "currency": "HKD",
+            "sell": 2990.41
+        },
+        {
+            "buy_cash": 196.03,
+            "buy_transfer": 198.01,
+            "currency": "JPY",
+            "sell": 207.51
+        },
+        {
+            "buy_cash": 16.75,
+            "buy_transfer": 18.61,
+            "currency": "KRW",
+            "sell": 20.4
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5388.58,
+            "currency": "MYR",
+            "sell": 5507.03
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2504.31,
+            "currency": "NOK",
+            "sell": 2611.07
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.95,
+            "currency": "RUB",
+            "sell": 346.8
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2488.6,
+            "currency": "SEK",
+            "sell": 2594.69
+        },
+        {
+            "buy_cash": 16405.14,
+            "buy_transfer": 16570.85,
+            "currency": "SGD",
+            "sell": 17105.32
+        },
+        {
+            "buy_cash": 608.31,
+            "buy_transfer": 675.9,
+            "currency": "THB",
+            "sell": 701.9
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22790.0,
+            "buy_transfer": 22820.0,
+            "currency": "USD",
+            "sell": 23100.0
+        }
+    ],
+    "2021-12-19": [
+        {
+            "buy_cash": 16041.48,
+            "buy_transfer": 16203.52,
+            "currency": "AUD",
+            "sell": 16726.14
+        },
+        {
+            "buy_cash": 17505.07,
+            "buy_transfer": 17681.88,
+            "currency": "CAD",
+            "sell": 18252.19
+        },
+        {
+            "buy_cash": 24370.96,
+            "buy_transfer": 24617.13,
+            "currency": "CHF",
+            "sell": 25411.12
+        },
+        {
+            "buy_cash": 3528.23,
+            "buy_transfer": 3563.87,
+            "currency": "CNY",
+            "sell": 3679.37
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3435.07,
+            "currency": "DKK",
+            "sell": 3567.21
+        },
+        {
+            "buy_cash": 25354.09,
+            "buy_transfer": 25610.19,
+            "currency": "EUR",
+            "sell": 26774.81
+        },
+        {
+            "buy_cash": 29794.52,
+            "buy_transfer": 30095.48,
+            "currency": "GBP",
+            "sell": 31066.17
+        },
+        {
+            "buy_cash": 2868.0,
+            "buy_transfer": 2896.97,
+            "currency": "HKD",
+            "sell": 2990.41
+        },
+        {
+            "buy_cash": 196.03,
+            "buy_transfer": 198.01,
+            "currency": "JPY",
+            "sell": 207.51
+        },
+        {
+            "buy_cash": 16.75,
+            "buy_transfer": 18.61,
+            "currency": "KRW",
+            "sell": 20.4
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5388.58,
+            "currency": "MYR",
+            "sell": 5507.03
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2504.31,
+            "currency": "NOK",
+            "sell": 2611.07
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.95,
+            "currency": "RUB",
+            "sell": 346.8
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2488.6,
+            "currency": "SEK",
+            "sell": 2594.69
+        },
+        {
+            "buy_cash": 16405.14,
+            "buy_transfer": 16570.85,
+            "currency": "SGD",
+            "sell": 17105.32
+        },
+        {
+            "buy_cash": 608.31,
+            "buy_transfer": 675.9,
+            "currency": "THB",
+            "sell": 701.9
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22790.0,
+            "buy_transfer": 22820.0,
+            "currency": "USD",
+            "sell": 23100.0
+        }
+    ],
+    "2021-12-20": [
+        {
+            "buy_cash": 15895.16,
+            "buy_transfer": 16055.72,
+            "currency": "AUD",
+            "sell": 16573.62
+        },
+        {
+            "buy_cash": 17317.38,
+            "buy_transfer": 17492.31,
+            "currency": "CAD",
+            "sell": 18056.55
+        },
+        {
+            "buy_cash": 24180.97,
+            "buy_transfer": 24425.22,
+            "currency": "CHF",
+            "sell": 25213.1
+        },
+        {
+            "buy_cash": 3519.42,
+            "buy_transfer": 3554.97,
+            "currency": "CNY",
+            "sell": 3670.2
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3401.85,
+            "currency": "DKK",
+            "sell": 3532.72
+        },
+        {
+            "buy_cash": 25108.9,
+            "buy_transfer": 25362.53,
+            "currency": "EUR",
+            "sell": 26515.96
+        },
+        {
+            "buy_cash": 29532.66,
+            "buy_transfer": 29830.97,
+            "currency": "GBP",
+            "sell": 30793.22
+        },
+        {
+            "buy_cash": 2862.23,
+            "buy_transfer": 2891.14,
+            "currency": "HKD",
+            "sell": 2984.4
+        },
+        {
+            "buy_cash": 195.71,
+            "buy_transfer": 197.68,
+            "currency": "JPY",
+            "sell": 207.17
+        },
+        {
+            "buy_cash": 16.66,
+            "buy_transfer": 18.52,
+            "currency": "KRW",
+            "sell": 20.31
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5365.18,
+            "currency": "MYR",
+            "sell": 5483.13
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2478.94,
+            "currency": "NOK",
+            "sell": 2584.62
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 307.81,
+            "currency": "RUB",
+            "sell": 343.29
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2453.69,
+            "currency": "SEK",
+            "sell": 2558.3
+        },
+        {
+            "buy_cash": 16333.43,
+            "buy_transfer": 16498.41,
+            "currency": "SGD",
+            "sell": 17030.6
+        },
+        {
+            "buy_cash": 604.53,
+            "buy_transfer": 671.7,
+            "currency": "THB",
+            "sell": 697.54
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22760.0,
+            "buy_transfer": 22790.0,
+            "currency": "USD",
+            "sell": 23070.0
+        }
+    ],
+    "2021-12-21": [
+        {
+            "buy_cash": 15860.96,
+            "buy_transfer": 16021.17,
+            "currency": "AUD",
+            "sell": 16538.0
+        },
+        {
+            "buy_cash": 17259.9,
+            "buy_transfer": 17434.25,
+            "currency": "CAD",
+            "sell": 17996.66
+        },
+        {
+            "buy_cash": 24206.94,
+            "buy_transfer": 24451.46,
+            "currency": "CHF",
+            "sell": 25240.24
+        },
+        {
+            "buy_cash": 3517.07,
+            "buy_transfer": 3552.6,
+            "currency": "CNY",
+            "sell": 3667.76
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3409.31,
+            "currency": "DKK",
+            "sell": 3540.47
+        },
+        {
+            "buy_cash": 25165.22,
+            "buy_transfer": 25419.41,
+            "currency": "EUR",
+            "sell": 26575.49
+        },
+        {
+            "buy_cash": 29460.52,
+            "buy_transfer": 29758.1,
+            "currency": "GBP",
+            "sell": 30718.07
+        },
+        {
+            "buy_cash": 2859.98,
+            "buy_transfer": 2888.87,
+            "currency": "HKD",
+            "sell": 2982.06
+        },
+        {
+            "buy_cash": 195.3,
+            "buy_transfer": 197.27,
+            "currency": "JPY",
+            "sell": 206.73
+        },
+        {
+            "buy_cash": 16.6,
+            "buy_transfer": 18.45,
+            "currency": "KRW",
+            "sell": 20.23
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5373.41,
+            "currency": "MYR",
+            "sell": 5491.56
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2481.41,
+            "currency": "NOK",
+            "sell": 2587.21
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 308.26,
+            "currency": "RUB",
+            "sell": 343.79
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2452.27,
+            "currency": "SEK",
+            "sell": 2556.82
+        },
+        {
+            "buy_cash": 16322.77,
+            "buy_transfer": 16487.65,
+            "currency": "SGD",
+            "sell": 17019.53
+        },
+        {
+            "buy_cash": 599.62,
+            "buy_transfer": 666.24,
+            "currency": "THB",
+            "sell": 691.87
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22730.0,
+            "buy_transfer": 22760.0,
+            "currency": "USD",
+            "sell": 23040.0
+        }
+    ],
+    "2021-12-22": [
+        {
+            "buy_cash": 15976.36,
+            "buy_transfer": 16137.73,
+            "currency": "AUD",
+            "sell": 16658.25
+        },
+        {
+            "buy_cash": 17326.64,
+            "buy_transfer": 17501.65,
+            "currency": "CAD",
+            "sell": 18066.16
+        },
+        {
+            "buy_cash": 24207.41,
+            "buy_transfer": 24451.92,
+            "currency": "CHF",
+            "sell": 25240.61
+        },
+        {
+            "buy_cash": 3527.08,
+            "buy_transfer": 3562.7,
+            "currency": "CNY",
+            "sell": 3678.17
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3416.49,
+            "currency": "DKK",
+            "sell": 3547.91
+        },
+        {
+            "buy_cash": 25215.59,
+            "buy_transfer": 25470.29,
+            "currency": "EUR",
+            "sell": 26628.56
+        },
+        {
+            "buy_cash": 29660.79,
+            "buy_transfer": 29960.4,
+            "currency": "GBP",
+            "sell": 30926.75
+        },
+        {
+            "buy_cash": 2867.04,
+            "buy_transfer": 2896.0,
+            "currency": "HKD",
+            "sell": 2989.41
+        },
+        {
+            "buy_cash": 195.07,
+            "buy_transfer": 197.04,
+            "currency": "JPY",
+            "sell": 206.49
+        },
+        {
+            "buy_cash": 16.67,
+            "buy_transfer": 18.52,
+            "currency": "KRW",
+            "sell": 20.31
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5399.04,
+            "currency": "MYR",
+            "sell": 5517.72
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2512.39,
+            "currency": "NOK",
+            "sell": 2619.5
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.01,
+            "currency": "RUB",
+            "sell": 345.74
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2460.64,
+            "currency": "SEK",
+            "sell": 2565.54
+        },
+        {
+            "buy_cash": 16405.21,
+            "buy_transfer": 16570.92,
+            "currency": "SGD",
+            "sell": 17105.4
+        },
+        {
+            "buy_cash": 601.55,
+            "buy_transfer": 668.38,
+            "currency": "THB",
+            "sell": 694.1
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22780.0,
+            "buy_transfer": 22810.0,
+            "currency": "USD",
+            "sell": 23090.0
+        }
+    ],
+    "2021-12-23": [
+        {
+            "buy_cash": 16108.28,
+            "buy_transfer": 16270.99,
+            "currency": "AUD",
+            "sell": 16795.8
+        },
+        {
+            "buy_cash": 17411.62,
+            "buy_transfer": 17587.49,
+            "currency": "CAD",
+            "sell": 18154.77
+        },
+        {
+            "buy_cash": 24325.89,
+            "buy_transfer": 24571.6,
+            "currency": "CHF",
+            "sell": 25364.15
+        },
+        {
+            "buy_cash": 3528.07,
+            "buy_transfer": 3563.71,
+            "currency": "CNY",
+            "sell": 3679.21
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3435.09,
+            "currency": "DKK",
+            "sell": 3567.23
+        },
+        {
+            "buy_cash": 25351.98,
+            "buy_transfer": 25608.06,
+            "currency": "EUR",
+            "sell": 26772.6
+        },
+        {
+            "buy_cash": 29850.85,
+            "buy_transfer": 30152.38,
+            "currency": "GBP",
+            "sell": 31124.92
+        },
+        {
+            "buy_cash": 2867.52,
+            "buy_transfer": 2896.48,
+            "currency": "HKD",
+            "sell": 2989.91
+        },
+        {
+            "buy_cash": 195.0,
+            "buy_transfer": 196.97,
+            "currency": "JPY",
+            "sell": 206.42
+        },
+        {
+            "buy_cash": 16.72,
+            "buy_transfer": 18.57,
+            "currency": "KRW",
+            "sell": 20.37
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5401.61,
+            "currency": "MYR",
+            "sell": 5520.35
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2533.72,
+            "currency": "NOK",
+            "sell": 2641.73
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 311.13,
+            "currency": "RUB",
+            "sell": 346.99
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2478.11,
+            "currency": "SEK",
+            "sell": 2583.75
+        },
+        {
+            "buy_cash": 16440.18,
+            "buy_transfer": 16606.24,
+            "currency": "SGD",
+            "sell": 17141.87
+        },
+        {
+            "buy_cash": 603.52,
+            "buy_transfer": 670.57,
+            "currency": "THB",
+            "sell": 696.37
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22785.0,
+            "buy_transfer": 22815.0,
+            "currency": "USD",
+            "sell": 23095.0
+        }
+    ],
+    "2021-12-24": [
+        {
+            "buy_cash": 16123.38,
+            "buy_transfer": 16286.25,
+            "currency": "AUD",
+            "sell": 16811.65
+        },
+        {
+            "buy_cash": 17380.64,
+            "buy_transfer": 17556.2,
+            "currency": "CAD",
+            "sell": 18122.58
+        },
+        {
+            "buy_cash": 24301.81,
+            "buy_transfer": 24547.29,
+            "currency": "CHF",
+            "sell": 25339.2
+        },
+        {
+            "buy_cash": 3516.54,
+            "buy_transfer": 3552.06,
+            "currency": "CNY",
+            "sell": 3667.2
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3420.81,
+            "currency": "DKK",
+            "sell": 3552.42
+        },
+        {
+            "buy_cash": 25245.71,
+            "buy_transfer": 25500.71,
+            "currency": "EUR",
+            "sell": 26660.53
+        },
+        {
+            "buy_cash": 29875.94,
+            "buy_transfer": 30177.72,
+            "currency": "GBP",
+            "sell": 31151.28
+        },
+        {
+            "buy_cash": 2857.85,
+            "buy_transfer": 2886.71,
+            "currency": "HKD",
+            "sell": 2979.84
+        },
+        {
+            "buy_cash": 193.95,
+            "buy_transfer": 195.91,
+            "currency": "JPY",
+            "sell": 205.31
+        },
+        {
+            "buy_cash": 16.67,
+            "buy_transfer": 18.52,
+            "currency": "KRW",
+            "sell": 20.31
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5393.03,
+            "currency": "MYR",
+            "sell": 5511.61
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2538.26,
+            "currency": "NOK",
+            "sell": 2646.49
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 311.75,
+            "currency": "RUB",
+            "sell": 347.69
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2471.15,
+            "currency": "SEK",
+            "sell": 2576.52
+        },
+        {
+            "buy_cash": 16433.56,
+            "buy_transfer": 16599.55,
+            "currency": "SGD",
+            "sell": 17135.07
+        },
+        {
+            "buy_cash": 604.29,
+            "buy_transfer": 671.43,
+            "currency": "THB",
+            "sell": 697.27
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22700.0,
+            "buy_transfer": 22730.0,
+            "currency": "USD",
+            "sell": 23010.0
+        }
+    ],
+    "2021-12-25": [
+        {
+            "buy_cash": 16123.38,
+            "buy_transfer": 16286.25,
+            "currency": "AUD",
+            "sell": 16811.65
+        },
+        {
+            "buy_cash": 17380.64,
+            "buy_transfer": 17556.2,
+            "currency": "CAD",
+            "sell": 18122.58
+        },
+        {
+            "buy_cash": 24301.81,
+            "buy_transfer": 24547.29,
+            "currency": "CHF",
+            "sell": 25339.2
+        },
+        {
+            "buy_cash": 3516.54,
+            "buy_transfer": 3552.06,
+            "currency": "CNY",
+            "sell": 3667.2
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3420.81,
+            "currency": "DKK",
+            "sell": 3552.42
+        },
+        {
+            "buy_cash": 25245.71,
+            "buy_transfer": 25500.71,
+            "currency": "EUR",
+            "sell": 26660.53
+        },
+        {
+            "buy_cash": 29875.94,
+            "buy_transfer": 30177.72,
+            "currency": "GBP",
+            "sell": 31151.28
+        },
+        {
+            "buy_cash": 2857.85,
+            "buy_transfer": 2886.71,
+            "currency": "HKD",
+            "sell": 2979.84
+        },
+        {
+            "buy_cash": 193.95,
+            "buy_transfer": 195.91,
+            "currency": "JPY",
+            "sell": 205.31
+        },
+        {
+            "buy_cash": 16.67,
+            "buy_transfer": 18.52,
+            "currency": "KRW",
+            "sell": 20.31
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5393.03,
+            "currency": "MYR",
+            "sell": 5511.61
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2538.26,
+            "currency": "NOK",
+            "sell": 2646.49
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 311.75,
+            "currency": "RUB",
+            "sell": 347.69
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2471.15,
+            "currency": "SEK",
+            "sell": 2576.52
+        },
+        {
+            "buy_cash": 16433.56,
+            "buy_transfer": 16599.55,
+            "currency": "SGD",
+            "sell": 17135.07
+        },
+        {
+            "buy_cash": 604.29,
+            "buy_transfer": 671.43,
+            "currency": "THB",
+            "sell": 697.27
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22700.0,
+            "buy_transfer": 22730.0,
+            "currency": "USD",
+            "sell": 23010.0
+        }
+    ],
+    "2021-12-26": [
+        {
+            "buy_cash": 16123.38,
+            "buy_transfer": 16286.25,
+            "currency": "AUD",
+            "sell": 16811.65
+        },
+        {
+            "buy_cash": 17380.64,
+            "buy_transfer": 17556.2,
+            "currency": "CAD",
+            "sell": 18122.58
+        },
+        {
+            "buy_cash": 24301.81,
+            "buy_transfer": 24547.29,
+            "currency": "CHF",
+            "sell": 25339.2
+        },
+        {
+            "buy_cash": 3516.54,
+            "buy_transfer": 3552.06,
+            "currency": "CNY",
+            "sell": 3667.2
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3420.81,
+            "currency": "DKK",
+            "sell": 3552.42
+        },
+        {
+            "buy_cash": 25245.71,
+            "buy_transfer": 25500.71,
+            "currency": "EUR",
+            "sell": 26660.53
+        },
+        {
+            "buy_cash": 29875.94,
+            "buy_transfer": 30177.72,
+            "currency": "GBP",
+            "sell": 31151.28
+        },
+        {
+            "buy_cash": 2857.85,
+            "buy_transfer": 2886.71,
+            "currency": "HKD",
+            "sell": 2979.84
+        },
+        {
+            "buy_cash": 193.95,
+            "buy_transfer": 195.91,
+            "currency": "JPY",
+            "sell": 205.31
+        },
+        {
+            "buy_cash": 16.67,
+            "buy_transfer": 18.52,
+            "currency": "KRW",
+            "sell": 20.31
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5393.03,
+            "currency": "MYR",
+            "sell": 5511.61
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2538.26,
+            "currency": "NOK",
+            "sell": 2646.49
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 311.75,
+            "currency": "RUB",
+            "sell": 347.69
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2471.15,
+            "currency": "SEK",
+            "sell": 2576.52
+        },
+        {
+            "buy_cash": 16433.56,
+            "buy_transfer": 16599.55,
+            "currency": "SGD",
+            "sell": 17135.07
+        },
+        {
+            "buy_cash": 604.29,
+            "buy_transfer": 671.43,
+            "currency": "THB",
+            "sell": 697.27
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22700.0,
+            "buy_transfer": 22730.0,
+            "currency": "USD",
+            "sell": 23010.0
+        }
+    ],
+    "2021-12-27": [
+        {
+            "buy_cash": 16045.11,
+            "buy_transfer": 16207.18,
+            "currency": "AUD",
+            "sell": 16730.13
+        },
+        {
+            "buy_cash": 17327.39,
+            "buy_transfer": 17502.42,
+            "currency": "CAD",
+            "sell": 18067.158
+        },
+        {
+            "buy_cash": 24158.87,
+            "buy_transfer": 24402.9,
+            "currency": "CHF",
+            "sell": 25190.29
+        },
+        {
+            "buy_cash": 3505.27,
+            "buy_transfer": 3540.68,
+            "currency": "CNY",
+            "sell": 3655.47
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3406.75,
+            "currency": "DKK",
+            "sell": 3537.84
+        },
+        {
+            "buy_cash": 25141.71,
+            "buy_transfer": 25395.67,
+            "currency": "EUR",
+            "sell": 26550.85
+        },
+        {
+            "buy_cash": 29753.32,
+            "buy_transfer": 30053.86,
+            "currency": "GBP",
+            "sell": 31023.58
+        },
+        {
+            "buy_cash": 2848.83,
+            "buy_transfer": 2877.61,
+            "currency": "HKD",
+            "sell": 2970.46
+        },
+        {
+            "buy_cash": 193.13,
+            "buy_transfer": 195.09,
+            "currency": "JPY",
+            "sell": 204.45
+        },
+        {
+            "buy_cash": 16.61,
+            "buy_transfer": 18.46,
+            "currency": "KRW",
+            "sell": 20.24
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5391.93,
+            "currency": "MYR",
+            "sell": 5510.52
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2519.75,
+            "currency": "NOK",
+            "sell": 2627.21
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.25,
+            "currency": "RUB",
+            "sell": 346.01
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2447.76,
+            "currency": "SEK",
+            "sell": 2552.14
+        },
+        {
+            "buy_cash": 16385.63,
+            "buy_transfer": 16551.14,
+            "currency": "SGD",
+            "sell": 17085.19
+        },
+        {
+            "buy_cash": 601.0,
+            "buy_transfer": 667.78,
+            "currency": "THB",
+            "sell": 693.47
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22620.0,
+            "buy_transfer": 22650.0,
+            "currency": "USD",
+            "sell": 22930.0
+        }
+    ],
+    "2021-12-28": [
+        {
+            "buy_cash": 16102.22,
+            "buy_transfer": 16264.86,
+            "currency": "AUD",
+            "sell": 16789.62
+        },
+        {
+            "buy_cash": 17399.88,
+            "buy_transfer": 17575.64,
+            "currency": "CAD",
+            "sell": 18142.68
+        },
+        {
+            "buy_cash": 24261.97,
+            "buy_transfer": 24507.04,
+            "currency": "CHF",
+            "sell": 25297.71
+        },
+        {
+            "buy_cash": 3510.38,
+            "buy_transfer": 3545.83,
+            "currency": "CNY",
+            "sell": 3660.79
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3413.82,
+            "currency": "DKK",
+            "sell": 3545.17
+        },
+        {
+            "buy_cash": 25194.76,
+            "buy_transfer": 25449.25,
+            "currency": "EUR",
+            "sell": 26606.79
+        },
+        {
+            "buy_cash": 29887.9,
+            "buy_transfer": 30189.8,
+            "currency": "GBP",
+            "sell": 31163.81
+        },
+        {
+            "buy_cash": 2854.02,
+            "buy_transfer": 2882.85,
+            "currency": "HKD",
+            "sell": 2975.86
+        },
+        {
+            "buy_cash": 192.8,
+            "buy_transfer": 194.75,
+            "currency": "JPY",
+            "sell": 204.09
+        },
+        {
+            "buy_cash": 16.64,
+            "buy_transfer": 18.49,
+            "currency": "KRW",
+            "sell": 20.27
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5402.69,
+            "currency": "MYR",
+            "sell": 5521.5
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2530.75,
+            "currency": "NOK",
+            "sell": 2638.66
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 310.8,
+            "currency": "RUB",
+            "sell": 346.64
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2456.93,
+            "currency": "SEK",
+            "sell": 2561.69
+        },
+        {
+            "buy_cash": 16418.04,
+            "buy_transfer": 16583.87,
+            "currency": "SGD",
+            "sell": 17118.92
+        },
+        {
+            "buy_cash": 601.16,
+            "buy_transfer": 667.95,
+            "currency": "THB",
+            "sell": 693.65
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22670.0,
+            "buy_transfer": 22700.0,
+            "currency": "USD",
+            "sell": 22980.0
+        }
+    ],
+    "2021-12-29": [
+        {
+            "buy_cash": 16093.31,
+            "buy_transfer": 16255.87,
+            "currency": "AUD",
+            "sell": 16780.43
+        },
+        {
+            "buy_cash": 17370.01,
+            "buy_transfer": 17545.46,
+            "currency": "CAD",
+            "sell": 18111.54
+        },
+        {
+            "buy_cash": 24261.97,
+            "buy_transfer": 24507.04,
+            "currency": "CHF",
+            "sell": 25297.71
+        },
+        {
+            "buy_cash": 3512.36,
+            "buy_transfer": 3547.84,
+            "currency": "CNY",
+            "sell": 3662.86
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3409.98,
+            "currency": "DKK",
+            "sell": 3541.18
+        },
+        {
+            "buy_cash": 25163.61,
+            "buy_transfer": 25417.78,
+            "currency": "EUR",
+            "sell": 26573.89
+        },
+        {
+            "buy_cash": 29887.9,
+            "buy_transfer": 30189.8,
+            "currency": "GBP",
+            "sell": 31163.81
+        },
+        {
+            "buy_cash": 2854.13,
+            "buy_transfer": 2882.96,
+            "currency": "HKD",
+            "sell": 2975.97
+        },
+        {
+            "buy_cash": 192.87,
+            "buy_transfer": 194.81,
+            "currency": "JPY",
+            "sell": 204.16
+        },
+        {
+            "buy_cash": 16.64,
+            "buy_transfer": 18.49,
+            "currency": "KRW",
+            "sell": 20.27
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 5406.57,
+            "currency": "MYR",
+            "sell": 5525.46
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2542.45,
+            "currency": "NOK",
+            "sell": 2650.86
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 309.85,
+            "currency": "RUB",
+            "sell": 345.58
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2472.1,
+            "currency": "SEK",
+            "sell": 2577.52
+        },
+        {
+            "buy_cash": 16442.29,
+            "buy_transfer": 16608.38,
+            "currency": "SGD",
+            "sell": 17144.21
+        },
+        {
+            "buy_cash": 601.7,
+            "buy_transfer": 668.55,
+            "currency": "THB",
+            "sell": 694.27
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22670.0,
+            "buy_transfer": 22700.0,
+            "currency": "USD",
+            "sell": 22980.0
+        }
+    ],
+    "2021-12-30": [
+        {
+            "buy_cash": 17437.0,
+            "buy_transfer": 17542.0,
+            "currency": "AUD",
+            "sell": 18048.0
+        },
+        {
+            "buy_cash": 18586.0,
+            "buy_transfer": 18698.0,
+            "currency": "CAD",
+            "sell": 19290.0
+        },
+        {
+            "buy_cash": 25029.0,
+            "buy_transfer": 25180.0,
+            "currency": "CHF",
+            "sell": 25983.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3540.0,
+            "currency": "CNY",
+            "sell": 3644.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 3708.0,
+            "currency": "DKK",
+            "sell": 3817.0
+        },
+        {
+            "buy_cash": 27366.0,
+            "buy_transfer": 27440.0,
+            "currency": "EUR",
+            "sell": 28500.0
+        },
+        {
+            "buy_cash": 31844.0,
+            "buy_transfer": 32036.0,
+            "currency": "GBP",
+            "sell": 33129.0
+        },
+        {
+            "buy_cash": 2903.0,
+            "buy_transfer": 2923.0,
+            "currency": "HKD",
+            "sell": 2996.0
+        },
+        {
+            "buy_cash": 204.71,
+            "buy_transfer": 205.95,
+            "currency": "JPY",
+            "sell": 214.01
+        },
+        {
+            "buy_cash": 18.49,
+            "buy_transfer": 20.43,
+            "currency": "KRW",
+            "sell": 21.58
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2.05,
+            "currency": "LAK",
+            "sell": 2.53
+        },
+        {
+            "buy_cash": 5223.07,
+            "buy_transfer": 0.0,
+            "currency": "MYR",
+            "sell": 5714.09
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2736.0,
+            "currency": "NOK",
+            "sell": 2817.0
+        },
+        {
+            "buy_cash": 16320.0,
+            "buy_transfer": 16419.0,
+            "currency": "NZD",
+            "sell": 16748.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 285.0,
+            "currency": "RUB",
+            "sell": 365.0
+        },
+        {
+            "buy_cash": 0.0,
+            "buy_transfer": 2738.0,
+            "currency": "SEK",
+            "sell": 2819.0
+        },
+        {
+            "buy_cash": 16999.0,
+            "buy_transfer": 17101.0,
+            "currency": "SGD",
+            "sell": 17573.0
+        },
+        {
+            "buy_cash": 697.02,
+            "buy_transfer": 704.06,
+            "currency": "THB",
+            "sell": 765.91
+        },
+        {
+            "buy_cash": 751.01,
+            "buy_transfer": 0.0,
+            "currency": "TWD",
+            "sell": 849.88
+        },
+        {
+            "buy_cash": 22860.0,
+            "buy_transfer": 22860.0,
+            "currency": "USD",
+            "sell": 23060.0
+        }
+    ],
+    "2021-12-31": [
         {
             "buy_cash": 17437.0,
             "buy_transfer": 17542.0,

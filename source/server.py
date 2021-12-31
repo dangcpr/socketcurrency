@@ -8,6 +8,7 @@ import sys
 import os
 import threading
 import fnmatch
+from datetime import datetime
 
 #ClientLogoutServer263
 #ClientExitServer555
@@ -212,17 +213,23 @@ def runServer(conn, addr):
                         break
                     if(str_data != 'ClientLogoutServer263'):
                         print(str_data)
-                        currencyUnit = findData(str_data, 'data.json')
-                        check = currencyUnit.idxCurrency()
-                        if (check == '-1'):
+                        checkDay = CheckDay(str_data)
+                        if checkDay == '-1':
                             conn.sendall('-1'.encode('utf8'))
                         else:
                             conn.sendall('1'.encode('utf8'))
-                            conn.recv(1024)
-                            exportData(conn, currencyUnit)
-                            print(currencyUnit.buy_cash)
-                            print(currencyUnit.buy_transfer)
-                            print(currencyUnit.sell)
+                            currency = conn.recv(1024).decode('utf8')
+                            currencyUnit = findData(currency, 'data.json',checkDay)
+                            checkCurr = currencyUnit.idxCurrency()
+                            if (checkCurr == '-1'):
+                                conn.sendall('-1'.encode('utf8'))
+                            else:
+                                conn.sendall('1'.encode('utf8'))
+                                conn.recv(1024)
+                                exportData(conn, currencyUnit)
+                                print(currencyUnit.buy_cash)
+                                print(currencyUnit.buy_transfer)
+                                print(currencyUnit.sell)
                     else:
                         break
                 Offline(Username, Password)
@@ -249,20 +256,36 @@ def Shutdown():
     global Running
     Running = False
 
+
 def data():
     try:
         apiKey = getAPIKey()
-
+        date_today = datetime.today().strftime('%Y-%m-%d')
+        print(date_today)
         url = "https://vapi.vnappmob.com/api/v2/exchange_rate/bid?api_key=" + apiKey
 
-        payload={}
+        payload = {}
         headers = {}
 
         response = requests.request("GET", url, headers=headers, data=payload)
         json_object = json.loads(response.text)
+        json_object[date_today] = json_object.pop("results")
         print('Da update du lieu')
-        with open('data.json', 'w', encoding='utf-8') as f:
-            json.dump(json_object, f, ensure_ascii=False, indent=4)
+        # with open('data.json', 'r') as file:
+        # data_curr = json.load(file)
+        # if date_today in data_curr:
+
+        # with open('data.json', 'w', encoding='utf-8') as file:
+        # json.dump(json_object, file, ensure_ascii=False, indent=4)
+
+        with open('data.json', 'r+') as file:
+            data_curr = json.load(file)
+            # json_object[date_today] = json_object.pop("results")
+            # print(json_object)
+            data_curr[date_today] = json_object[date_today]
+        with open('data.json', 'w') as file:
+            file.seek(0)
+            json.dump(data_curr, file, indent=4)
     except:
         print('Không lấy được dữ liệu')
 
@@ -293,16 +316,26 @@ def exportCurrency():
         json_data = json.load(f)
         print(json.dumps(json_data, indent = 3))
 
+def CheckDay(date):
+    with open('data.json') as file:
+        file_Data = json.load(file)
+
+    for i in file_Data:
+        if i == date:
+            return date
+    return '-1'
+
 class findData:
-    def __init__(self,currencyUnit,fileName):
+    def __init__(self,currencyUnit,fileName,date):
         self.name = currencyUnit
         self.file = fileName
+        self.date = date
 
     def idxCurrency(self):
         with open(self.file) as file:
             file_Data = json.load(file)
 
-        for i, entry in enumerate(file_Data['results']):
+        for i, entry in enumerate(file_Data[self.date]):
             if entry['currency'] == self.name:
                 return i
 
@@ -313,20 +346,20 @@ class findData:
 
         with open(self.file) as file:
             file_Data = json.load(file)
-        return file_Data['results'][idx]["buy_cash"]
+        return file_Data[self.date][idx]["buy_cash"]
 
 
     def buy_transfer(self):
         idx = self.idxCurrency()
         with open(self.file) as file:
             file_Data = json.load(file)
-        return file_Data['results'][idx]["buy_transfer"]
+        return file_Data[self.date][idx]["buy_transfer"]
 
     def sell(self):
         idx = self.idxCurrency()
         with open(self.file) as file:
             file_Data = json.load(file)
-        return file_Data['results'][idx]["sell"]
+        return file_Data[self.date][idx]["sell"]
 
 def exportData(conn, currencyUnit):
     buy_cash = currencyUnit.buy_cash()
