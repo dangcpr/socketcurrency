@@ -14,6 +14,7 @@ from tkinter.ttk import *
 from tkinter import ttk
 import tkinter.ttk as exTk
 import tkinter as tk
+from datetime import datetime
 
 host = None
 port = None
@@ -30,6 +31,10 @@ options1 = ["Đô la Úc - AUD", "Đô la Canada - CAD", "Franc Thụy Sĩ - CHF
             "Đô la Singapore - SGD",
             "Baht Thái Lan - THB", "Tân Đài tệ - TWD", "Đô la Mỹ - USD"]
 
+day = ["01","02","03","04","05","06","07","08","09","10","11",'12',"13","14","15","16","17","18","19","20","21","22",
+        "23","24","25","26","27","28","29","30","31"]
+month = ["01","02","03","04","05","06","07","08","09","10","11","12"]
+year = ["2021","2022"]
 
 def Thongbao(str):  # thông báo xuất hiện và ấn ok để tắt
     Noti = tk.Toplevel(root)
@@ -52,7 +57,7 @@ def Confirm_Exit(): #bước đảm bảo trước khi tắt cliet
     Noti = tk.Toplevel(root)
     Noti.title("Thông báo")
     tk.Label(Noti, text="Bạn muốn thoát?", wraplength=250).place(relx=0.5, rely=0.3, anchor='center')
-    tk.Button(Noti, text="thoát", command=lambda: Exit(), width=10).place(relx=0.2, rely=0.7,
+    tk.Button(Noti, text="Thoát", command=lambda: Exit(), width=10).place(relx=0.2, rely=0.7,
                                                                                      anchor='center')
     tk.Button(Noti, text="Cancel", command=lambda: Noti.destroy(), width=10).place(relx=0.8, rely=0.7,
                                                                                       anchor='center')
@@ -287,38 +292,51 @@ def ChooseForm():  # Tạo ra lựa chọn cho người dùng sau khi nhập hos
     ExitButton.place(relx=0.5, rely=0.8, anchor="center")
 
 
-def runClient(atm, cmb, frame, textBox):
+def runClient(atm, cmb, frame,d,m,y, textBox):
     try:
-        if atm == '':
-            atm = "1"
-        if cmb == '':
-            cmb = 'USD'
-        for i in range(len(options1)):
-            if (cmb == options1[i]):
-                cmb = options[i]
-
-        s.sendall(cmb.encode('utf8'))
-        check = s.recv(1024).decode('utf8')
-        if (check == '-1'):
-            # s.sendall('Da nhan check'.encode('utf8'))
-            Thongbao("Đơn vị tiền tệ không hợp lệ")
+        date = None
+        tmpdate = None
+        if d == "Ngày" or m == 'Tháng' or y == 'Năm':
+            date = datetime.today().strftime('%Y-%m-%d')
+            tmpdate=datetime.today().strftime('%d-%m-%Y')
+        else:
+            date = y + '-' + m + '-' + d
+            tmpdate = d + '-' + m + '-' + y
+        s.sendall(date.encode('utf8'))
+        checkDay =s.recv(1024).decode('utf8')
+        if checkDay == '-1':
+            textBox.delete(1.0, END)
+            textBox.insert(0.0,"Không có dữ liệu")
             return
         else:
-            s.sendall('Da nhan check'.encode('utf8'))
-            buy_cash = s.recv(1024).decode('utf8')
-            s.sendall('Da nhan buy cash'.encode('utf8'))
-            buy_transfer = s.recv(1024).decode('utf8')
-            s.sendall('Da nhan buy transfer'.encode('utf8'))
-            sell = s.recv(1024).decode('utf8')
-            s.sendall('Da nhan sell'.encode('utf8'))
-            buy_cash1 = float(atm) * float(buy_cash)
-            buy_transfer1 = float(atm) * float(buy_transfer)
-            sell1 = float(atm) * float(sell)
-            print(sell1)
-            textBox.delete(1.0, END)
-            textBox.insert(0.0, atm + " " + cmb + "\nTiền mặt          : " + str(buy_cash1) + " VND\nChuyển khoản: " + str(
-                buy_transfer1)
-                        + " VND\nBán                 : " + str(sell1) + " VND")
+            if atm == '':
+                atm = "1"
+            if cmb == '':
+                cmb = 'USD'
+            for i in range(len(options1)):
+                if (cmb == options1[i]):
+                    cmb = options[i]
+
+            s.sendall(cmb.encode('utf8'))
+            check = s.recv(1024).decode('utf8')
+            if (check == '-1'):
+                # s.sendall('Da nhan check'.encode('utf8'))
+                Thongbao("Đơn vị tiền tệ không hợp lệ")
+                return
+            else:
+                s.sendall('Da nhan check'.encode('utf8'))
+                buy_cash = s.recv(1024).decode('utf8')
+                s.sendall('Da nhan buy cash'.encode('utf8'))
+                buy_transfer = s.recv(1024).decode('utf8')
+                s.sendall('Da nhan buy transfer'.encode('utf8'))
+                sell = s.recv(1024).decode('utf8')
+                s.sendall('Da nhan sell'.encode('utf8'))
+                buy_cash1 = round(float(atm) * float(buy_cash),2)
+                buy_transfer1 = round(float(atm) * float(buy_transfer),2)
+                sell1 = round(float(atm) * float(sell),2)
+                textBox.delete(1.0, END)
+                textBox.insert(0.0,"Tỷ giá tiền tệ ngày "+ tmpdate+"\nSố tiền             : "+ atm + " " + cmb + "\nTiền mặt          : " + str(buy_cash1) +
+                               " VND\nChuyển khoản: " + str(buy_transfer1)+ " VND\nBán                 : " + str(sell1) + " VND")
     except:
         ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
         s.close()
@@ -352,42 +370,52 @@ def mainPage():
 
     # label so tien
     amount = Label(main_Frame, text="Số tiền ", background="#FFFABD", foreground="black", font='arial 15')
-    amount.place(x=50, y=50)
+    amount.place(x=50, y=70)
 
     # entry nhap so tien
     atm = StringVar()
     amount_entry = Entry(main_Frame, width=20, textvariable=atm)
-    amount_entry.place(x=50, y=80)
+    amount_entry.place(x=50, y=100)
+    #amount_entry.insert("1")
 
     # lable Don vi tien te can tra cuu
     odered_currency = Label(main_Frame, text="Đơn vị tiền tệ cần tra cứu", background="#FFFABD", foreground="black",
                             font='arial 15')
-    odered_currency.place(x=250, y=50)
+    odered_currency.place(x=250, y=70)
 
     # combobox don vi tien te
     cmb = exTk.Combobox(main_Frame, width=25, font='Time 11', values=options1)
-    cmb.place(x=250, y=80)
+    cmb.place(x=250, y=100)
+    cmb.current(19)
+
+
+    d = ttk.Combobox(main_Frame,width=10,font='Arial 10',values=day)
+    d.place(x=220,y=21)
+    d.insert(0, "Ngày")
+    m = ttk.Combobox(main_Frame,width=10,font='Arial 10',values=month)
+    m.place(x=360,y=21)
+    m.insert(0,'Tháng')
+    y = ttk.Combobox(main_Frame,width=10,font='Arial 10',values=year)
+    y.place(x=495,y=21)
+    y.insert(0,'Năm')
 
     VN_currency = Label(main_Frame, text="Đơn vị tiền tệ Việt Nam", background="#FFFABD", foreground="black",
                         font='arial 15')
-    VN_currency.place(x=550, y=50)
+    VN_currency.place(x=550, y=70)
     VN_curr = Label(main_Frame, text="Việt Nam Đồng - VND", background="#EFE8A8", font='Time 11')
-    VN_curr.place(x=550, y=80)
+    VN_curr.place(x=550, y=100)
 
     # Thong tin can tim
     tb = Text(main_Frame, width=35, height=5, background="white", font='Arial 18 bold')
-    tb.place(x=165, y=245)
+    tb.place(x=165, y=265)
 
     Search_Btn = tk.Button(main_Frame, text="Tra cứu", background='#0071EB', fg='white', font='arial 18 bold',
-                           command=lambda: runClient(atm.get(), cmb.get(), main_Frame, tb))
-    Search_Btn.place(x=340, y=140)
+                           command=lambda: runClient(atm.get(), cmb.get(), main_Frame,d.get(),m.get(),y.get(), tb))
+    Search_Btn.place(x=340, y=160)
 
     Logout_Btn = tk.Button(MainPage, text="Đăng xuất", background="white", foreground="#0A146E",
                            command=lambda: LogOut(MainPage))
-    Logout_Btn.place(x=915, y=10)
-
-    #MainPage.mainloop()
-
+    Logout_Btn.place(x=915, y=30)
 
 root = tk.Tk()
 # các thông tin tại màn hình chính
@@ -418,7 +446,7 @@ UPwarning = tk.Label(root, text="Username và Password từ 1-16 ký tự!", fg=
 UsernameLabel = tk.Label(root, text="Username")
 UsernameEntry = tk.Entry(root)
 PasswordLabel = tk.Label(root, text="Password")
-PasswordEntry = tk.Entry(root)
+PasswordEntry = tk.Entry(root,show="*")
 Click2 = tk.Button(root, text="LogIn", command=lambda: Login())
 Click3 = tk.Button(root, text="SignUP", command=lambda: SignUp())
 
