@@ -436,7 +436,7 @@ except socket.error as err:
 UsernameLabel = tk.Label(root, text="Username")
 UsernameEntry = tk.Entry(root)
 PasswordLabel = tk.Label(root, text="Password")
-PasswordEntry = tk.Entry(root)
+PasswordEntry = tk.Entry(root,show="*")
 Click2 = tk.Button(root, text="LogIn", command=lambda: Login())
 Click3 = tk.Button(root, text="SignUP", command=lambda: SignUp())
 
