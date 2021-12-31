@@ -181,6 +181,7 @@ def closeClient(conn, addr):
     connectAddress.pop(index)
     #index2 = AddressOnly.index(addr)
     AddressOnly.pop(index)
+    Address_Account.pop(index)
     global Changed
     Changed = True
     conn.shutdown(socket.SHUT_RDWR)
@@ -196,7 +197,7 @@ def runServer(conn, addr):
             strr=str(addr) + ' đã kết nối!'
             Thongbao(strr)
             connectAddress.append(conn)
-            index=connectAddress.index(conn)
+            
             AddressOnly.append(addr)
             Address_Account.append("ZeroAccountConnect")
             #AddressOnly[index]=addr
@@ -214,6 +215,7 @@ def runServer(conn, addr):
                     return
                 if Username == 'ClientExitServer555' or Password == 'ClientExitServer555': #Xảy ra khi người dùng ấn Login/SignUp sau đó ấn thoát, break và ngắt kết nối
                     break
+                index=connectAddress.index(conn)
                 Address_Account[index] = Username
                 str_data = None
                 while str_data != 'ClientLogoutServer263': #khi server nhận tín hiệu ClientLogoutServer263 sẽ đăng xuất

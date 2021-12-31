@@ -93,6 +93,7 @@ def GotoSignUp(Noti):
         SignUpForm()
     except:
         ThongbaoServer("Server đã ngắt kết nối! Vui lòng thử lại sau!")
+        s.close()
 
 
 def GotoLogin(Noti):
@@ -103,6 +104,7 @@ def GotoLogin(Noti):
         LoginForm()
     except:
         ThongbaoServer("Server đã ngắt kết nối! Vui lòng thử lại sau!")
+        s.close()
 
 
 def Hide_SignUpForm():  # xóa các ô nhập thông tin SignUp
@@ -170,6 +172,7 @@ def SignUp():
             Thongbao("Vui Lòng nhập lại!")
     except:
         ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
+        s.close()
 
 
 def Login():
@@ -256,6 +259,7 @@ def ChoosoToLogin(LoginButton, SignUpButton):
         s.sendall('1'.encode('utf8'))  # Gửi thông tin cho server
     except:
         ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
+        s.close()
 
 
 def ChoosoToSignUp(LoginButton, SignUpButton):
@@ -266,6 +270,7 @@ def ChoosoToSignUp(LoginButton, SignUpButton):
         s.sendall('0'.encode('utf8'))  # Gửi thông tin cho server
     except:
         ThongbaoServer("Kết nối đã bị ngắt! Vui lòng thử lại sau!")
+        s.close()
 
 
 def ChooseForm():  # Tạo ra lựa chọn cho người dùng sau khi nhập host và port
