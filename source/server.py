@@ -247,6 +247,7 @@ def runServer(conn, addr):
             closeClient(conn, addr)
     except socket.error as err:
         print("Lỗi kết nối: ", err)
+        closeClient(conn, addr)
         sys.exit(1)
 
 def threadClient():
@@ -333,10 +334,10 @@ def CheckDay(date):
     with open('data.json') as file:
         file_Data = json.load(file)
 
-    for i in file_Data:
-        if i == date:
-            return date
-    return '-1'
+    if date not in file_Data:
+        return '-1'
+    else:
+        return date
 
 class findData:
     def __init__(self,currencyUnit,fileName,date):

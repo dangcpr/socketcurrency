@@ -137,6 +137,7 @@ def Check_IP_port():  # kiểm tra xem có thể kết nối tới server không
         s.connect((host, int(port)))
         Hide_Get_IP_port()
         ChooseForm()
+        print(s)
     except:
         Thongbao("IP hoặc port không hợp lệ! Vui lòng nhập lại")
         return
@@ -230,6 +231,7 @@ def Get_IP_port(HostEntry, PortEntry):
 
 
 def SignUpForm():  # Tạo các ô điền Login
+    UPwarning.place(relx=0.5, rely=0.4, anchor='center')
     UsernameLabel.place(relx=0.3, rely=0.5)
     UsernameEntry.place(relx=0.4, rely=0.5)
     PasswordLabel.place(relx=0.3, rely=0.55)
