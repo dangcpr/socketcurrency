@@ -144,12 +144,6 @@ def Check_IP_port():  # kiểm tra xem có thể kết nối tới server không
         return
 
 
-def getData(file):
-    with open(file, 'r') as f:
-        data = json.load(f)
-    return data
-
-
 def Exit():
     try:
         s.sendall('ClientExitServer555'.encode('utf8'))
