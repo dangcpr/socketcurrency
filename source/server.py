@@ -5,9 +5,7 @@ import time
 import socket
 import tkinter as tk
 import sys
-import os
 import threading
-import fnmatch
 import functools as ft
 from datetime import datetime
 

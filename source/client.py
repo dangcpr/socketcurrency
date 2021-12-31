@@ -1,14 +1,6 @@
 
-import requests
 import json
-import schedule
-import time
 import socket
-import sys
-import os
-import _thread
-import fnmatch
-import threading
 from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk
