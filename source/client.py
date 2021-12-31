@@ -1,5 +1,3 @@
-
-import json
 import socket
 from tkinter import *
 from tkinter.ttk import *
